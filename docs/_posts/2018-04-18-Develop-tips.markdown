@@ -15,4 +15,20 @@ categories: reference
 
 # API Design
 
+- Init(owner, repos);
+
+  初始化相关操作
+
+- List(issueId, callback);
+  
+  列出某个文章所有的评论
+  
+- Add(issueId, args..., callback);
+
+  添加评论
+  
+- Count(issueId, callback);
+  
+  获取某个文章的评论数量
+
 //TODO
