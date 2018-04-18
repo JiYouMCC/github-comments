@@ -10,6 +10,10 @@ date:   2018-04-18 10:11:03 +0800
 
 [Github REST API v3](https://developer.github.com/v3/)
 
+- [list-comments-on-an-issue](https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue)
+- [get-or-create-an-authorization-for-a-specific-app](https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app)
+- [oauth-available-scopes](https://developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps/#available-scopes)
+
 [JQuery API Documentation](http://api.jquery.com/)
 
 # API Design
