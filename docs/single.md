@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Single Test Page
-permalink: /single/
+permalink: /test/
 ---
 
 The single test page.
