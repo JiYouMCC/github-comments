@@ -13,7 +13,11 @@ Util = {
       var html = converter.makeHtml(commentData.body);
       $("#comments").append(
         $("<div class='comment'></div>").append(
-          $("<a></a>").attr('href', userLink).append($("<span></span>").text(userName).addClass('username'))
+          $("<a></a>").attr('href', userLink).append(
+            $("<img></img>").attr('src', userAvatar).attr('height','20').attr('width','20')
+          ).append(
+            $("<span></span>").text(userName).addClass('username')
+          )
         ).append(
           $("<span></span>").text(date).addClass('post-meta')
         ).append(
