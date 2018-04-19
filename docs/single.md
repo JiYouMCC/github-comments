@@ -29,6 +29,6 @@ The single test page.
     }
   console.log(data);
 }
-  Comments.get(2, callback);
+  Comments.get(1, callback);
    </script>
   <div id="comments"></div>
