@@ -6,7 +6,8 @@ Util = {
       var userAvatar = commentData.user.avatar_url;
       var userLink = commentData.user.html_url;
       var date = new Date(commentData.created_at);
-      var converter = new showdown.Converter();
+      var converter = new showdown.Converter();      
+      converter.setOption('emoji', true);
       var html = converter.makeHtml(commentData.body);
       $("#comments").append(
         $("<div class='comment'></div>").append(
