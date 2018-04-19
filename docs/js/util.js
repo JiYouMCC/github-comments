@@ -11,9 +11,10 @@ Util = {
       var html = converter.makeHtml(commentData.body);
       $("#comments").append(
         $("<div class='comment'></div>").append(
-          $("<p></p>").text(userName + " @ " + date)
+          $("<span></span>").text(userName).addClass('username')).append(
+          $("<span></span>").text(date).addClass('post-meta')
         ).append(
-          $(html)
+          $("<div></div>").text(html).addClass('post-content')
         )
       );
     }
