@@ -1,11 +1,57 @@
+function encodeQueryData(data) {
+   let ret = [];
+   for (let d in data)
+     ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+   return ret.join('&');
+}
+
 Comments = {
     REPOS : undefined,
     OWNER : undefined,
+    CLIENT_ID: undefined,
+    CLIENT_SECRET: undefined,
     ACCEPT_JSON: "application/json",
     ACCEPTS : "application/vnd.github.v3+json",
-    init: function(owner, repository) {
+    SCOPE: "public_repo",
+    ACCESS_TOKEN: undefined,
+    init: function(owner, repository, clientId, clientSecret) {
         Comments.REPOS = repository;
         Comments.OWNER = owner;
+        Comments.CLIENT_ID = clientId;
+        Comments.CLIENT_SECRET = clientSecret;
+        var url = new URL(window.location.href);
+        var c = url.searchParams.get("code");
+        if (c)
+            Comments.getAccessToken(c);
+    },
+    login: function(redirectUri) {
+        var data = {
+            scope: Comments.SCOPE,
+            redirect_uri: redirectUri, 
+            client_id:Comments.CLIENT_ID,
+            client_secret:Comments.CLIENT_SECRET
+        };
+        var querystring = encodeQueryData(data);
+        location.href = 'https://github.com/login/oauth/authorize?' + querystring;
+    },
+    getAccessToken(code) {
+        $.ajax(
+            {
+                url: "https://github.com/login/oauth/access_token",
+                type: "POST",
+                accepts: {
+                    json: Comments.ACCEPT_JSON
+                },
+                data: {
+                    'client_id':Comments.CLIENT_ID,
+                    'client_secret':Comments.CLIENT_SECRET,
+                    'code':code
+                },
+                dataType: 'json',
+            }
+        ).done(function(data) {
+            console.log(data);
+        })
     },
     get: function(issueId, callback) {
         $.ajax(
@@ -21,6 +67,7 @@ Comments = {
         })
     },
     getReactions: function(commentId, callback) {
+        //TODO
          $.ajax(
             {
                 url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/comments/" + commentId + "/reactions",
