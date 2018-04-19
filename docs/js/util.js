@@ -14,7 +14,7 @@ Util = {
           $("<span></span>").text(userName).addClass('username')).append(
           $("<span></span>").text(date).addClass('post-meta')
         ).append(
-          $("<div></div>").text(html).addClass('post-content')
+          $("<div></div>").append(html).addClass('post-content')
         )
       );
     }
