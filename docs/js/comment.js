@@ -40,9 +40,8 @@ Comments = {
                 url: "https://github.com/login/oauth/access_token",
                 type: "POST",
                headers: {
-        mode: 'no-cors'
-    },
-                
+                  'mode': 'no-cors'
+               },                
                 accepts: {
                     json: Comments.ACCEPT_JSON
                 },
