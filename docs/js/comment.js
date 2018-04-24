@@ -42,7 +42,8 @@ Comments = {
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
-                    'code':code
+                    'code':code,
+                    'accept': 'json'
                 },
                 accepts: {
                     json: 'json'
