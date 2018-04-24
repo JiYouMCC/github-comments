@@ -74,11 +74,7 @@ Comments = {
                 url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments?access_token="+Comments.ACCESS_TOKEN,
 		data:{
 			"body": commentText
-		},
-		accepts: {
-                    json: Comments.ACCEPT_JSON
-                },
-                dataType: 'json',
+		}
             }
         ).done(function(data) {
             callback(data);
