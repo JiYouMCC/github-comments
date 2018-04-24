@@ -45,7 +45,7 @@ Comments = {
                     'code':code
                 },
                 accepts: {
-                    json: Comments.ACCEPT_JSON
+                    json: 'json'
                 },
                 dataType: 'json',
             }
