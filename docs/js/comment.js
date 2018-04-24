@@ -39,13 +39,13 @@ Comments = {
             {
                 url: "https://github.com/login/oauth/access_token",
                 type: "POST",
-                crossDomain: false,
+                crossDomain: true,
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
                     'code':code
                 },
-                dataType: 'application/x-www-form-urlencoded',
+                dataType: 'application/json',
             }
         ).done(function(data) {
             console.log(data);
