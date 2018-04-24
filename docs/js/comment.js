@@ -40,15 +40,12 @@ Comments = {
                 url: "https://github.com/login/oauth/access_token",
                 type: "POST",
                 crossDomain: true,
-                accepts: {
-                    json: Comments.ACCEPT_JSON
-                },
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
                     'code':code
                 },
-                dataType: 'json',
+                dataType: 'jsonp',
             }
         ).done(function(data) {
             console.log(data);
