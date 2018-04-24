@@ -39,7 +39,7 @@ Comments = {
             {
                 url: "https://github.com/login/oauth/access_token",
                 type: "POST",
-                crossDomain: true,
+                crossDomain: false,
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
