@@ -50,7 +50,7 @@ Comments = {
                 },
                 dataType: Comments.ACCEPT_JSON,
             }
-        ).done(function(data) {
+        ).success(function(data) {
             console.log(data);
         })
     },
