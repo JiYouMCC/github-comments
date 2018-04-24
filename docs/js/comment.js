@@ -34,17 +34,22 @@ Comments = {
         var querystring = encodeQueryData(data);
         location.href = 'https://github.com/login/oauth/authorize?' + querystring;
     },
-    getAccessToken(code) {       
+    getAccessToken(code) {
        $.ajax({
-  method: "POST",
-  url: "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
-  data: {  'client_id':Comments.CLIENT_ID,
-                    'client_secret':Comments.CLIENT_SECRET,
-                    'code':code }
-})
-  .done(function( msg ) {
-    alert( "Data Saved: " + msg );
-  })
+          method: "POST",
+          url: "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
+          headers: {
+			Accept: 'application/json',
+			'X-Requested-With': 'XMLHttpRequest'
+		},
+          data: {
+             'client_id':Comments.CLIENT_ID,
+             'client_secret':Comments.CLIENT_SECRET,
+             'code':code 
+          }
+       }).done(function( data ) {
+          alert( data );
+       })
    
     },
     get: function(issueId, callback) {
