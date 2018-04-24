@@ -37,9 +37,8 @@ Comments = {
     getAccessToken(code) {
         $.ajax(
             {
-                url: "https://github.com/login/oauth/access_token",
+                url: "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
                 type: "POST",
-                crossDomain: true,
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
