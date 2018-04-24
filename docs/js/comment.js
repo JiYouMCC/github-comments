@@ -39,6 +39,9 @@ Comments = {
             {
                 url: "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
                 type: "POST",
+                accepts: {
+                    json: Comments.ACCEPT_JSON
+                },
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
