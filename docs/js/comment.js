@@ -48,7 +48,9 @@ Comments = {
              'code':code 
           }
        }).done(function( data ) {
-          console.log( data );
+	    if(data.access_token) {
+		Comments.ACCESS_TOKEN = data.access_token;
+	}
        })
    
     },
