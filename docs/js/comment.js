@@ -48,7 +48,7 @@ Comments = {
              'code':code 
           }
        }).done(function( data ) {
-          alert( data );
+          console.log( data );
        })
    
     },
