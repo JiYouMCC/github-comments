@@ -73,7 +73,8 @@ Comments = {
 		method: "POST",
                 url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
                 data:{
-			"body": commentText
+			"body": commentText,
+			'access_token':Comments.ACCESS_TOKEN
 		},
 		accepts: {
                     json: Comments.ACCEPT_JSON
