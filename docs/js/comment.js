@@ -97,7 +97,5 @@ Comments = {
         ).done(function(data) {
             callback(data);
         })
-    },
-    add: function(callback) {
     }
 }
