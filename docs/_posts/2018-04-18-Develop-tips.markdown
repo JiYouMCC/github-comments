@@ -13,6 +13,7 @@ date:   2018-04-18 10:11:03 +0800
 - [list-comments-on-an-issue](https://developer.github.com/v3/issues/comments/#list-comments-on-an-issue)
 - [get-or-create-an-authorization-for-a-specific-app](https://developer.github.com/v3/oauth_authorizations/#get-or-create-an-authorization-for-a-specific-app)
 - [oauth-available-scopes](https://developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps/#available-scopes)
+- [cors-issue-on-github-oauth](https://stackoverflow.com/questions/42150075/cors-issue-on-github-oauth)
 
 [JQuery API Documentation](http://api.jquery.com/)
 
