@@ -71,7 +71,10 @@ Comments = {
 	    $.ajax(
             {
 		method: "POST",
-                url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments?access_token="+Comments.ACCESS_TOKEN,
+		    headers:{
+		    "authToken": Comments.ACCESS_TOKEN
+		    },
+                url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
 		data: {'body': commentText},
 		dataType: 'json'
             }
