@@ -39,6 +39,7 @@ Comments = {
             {
                 url: "https://github.com/login/oauth/access_token",
                 type: "POST",
+                crossDomain: true,
                 accepts: {
                     json: Comments.ACCEPT_JSON
                 },
