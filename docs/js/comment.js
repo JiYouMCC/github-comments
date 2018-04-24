@@ -42,15 +42,15 @@ Comments = {
                 data: {
                     'client_id':Comments.CLIENT_ID,
                     'client_secret':Comments.CLIENT_SECRET,
-                    'code':code,
-                    'accept': 'json'
+                    'code':code
                 },
                 accepts: {
                     json: Comments.ACCEPT_JSON
                 },
                 dataType: Comments.ACCEPT_JSON,
             }
-        ).success(function(data) {
+        ).done(function(data) {
+           console.log(1);
             console.log(data);
         })
     },
