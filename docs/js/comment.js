@@ -67,6 +67,23 @@ Comments = {
             callback(data);
         })
     },
+    add: function(issueId, commentText, callback) {
+	    $.ajax(
+            {
+		method: "POST",
+                url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
+                data:{
+			"body": commentText
+		},
+		accepts: {
+                    json: Comments.ACCEPT_JSON
+                },
+                dataType: 'json',
+            }
+        ).done(function(data) {
+            callback(data);
+        })
+    },
     getReactions: function(commentId, callback) {
         //TODO
          $.ajax(
