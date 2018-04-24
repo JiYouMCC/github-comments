@@ -45,7 +45,7 @@ Comments = {
                     'client_secret':Comments.CLIENT_SECRET,
                     'code':code
                 },
-                dataType: 'jsonp',
+                dataType: 'application/x-www-form-urlencoded',
             }
         ).done(function(data) {
             console.log(data);
