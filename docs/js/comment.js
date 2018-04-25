@@ -14,6 +14,7 @@ Comments = {
     ACCEPTS : "application/vnd.github.v3+json",
     SCOPE: "public_repo",
     ACCESS_TOKEN: undefined,
+    CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     init: function(owner, repository, clientId, clientSecret) {
         Comments.REPOS = repository;
         Comments.OWNER = owner;
@@ -37,7 +38,7 @@ Comments = {
     getAccessToken(code) {
        $.ajax({
           method: "POST",
-          url: "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
+          url: Comments.CORS_ANYWHERE + "https://github.com/login/oauth/access_token",
           headers: {
 			Accept: 'application/json',
 			'X-Requested-With': 'XMLHttpRequest'
@@ -74,7 +75,7 @@ Comments = {
 		    headers:{
 		    "authToken": Comments.ACCESS_TOKEN
 		    },
-                url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
+                url: Comments.CORS_ANYWHERE + "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
 		data: {'body': commentText},
 		dataType: 'json'
             }
