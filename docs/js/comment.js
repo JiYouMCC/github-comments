@@ -23,10 +23,15 @@ Comments = {
         Comments.initAccessToken();
     },
     initAccessToken: function() {
-        var url = new URL(window.location.href);
-        var code = url.searchParams.get("code");
-        if (code) {
-            Comments.getAccessToken(code);
+        var accessToken = window.sessionStorage.getItem("GIT_ACCESS_TOKEN");
+        if (accessToken) {
+            Comments.ACCESS_TOKEN = accessToken;
+        } else {
+            var url = new URL(window.location.href);
+            var code = url.searchParams.get("code");
+            if (code) {
+                Comments.getAccessToken(code);
+            }
         }
     },
     login: function(redirectUri) {
@@ -55,6 +60,7 @@ Comments = {
        }).done(function(data) {
            if(data.access_token) {
                Comments.ACCESS_TOKEN = data.access_token;
+               window.sessionStorage.setItem("GIT_ACCESS_TOKEN", data.access_token);
            }
        })   
     },
