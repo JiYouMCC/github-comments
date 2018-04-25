@@ -74,8 +74,7 @@ Comments = {
             method: "POST",
             headers: {
                Accept: 'application/json',
-               'X-Requested-With': 'XMLHttpRequest',
-               "authToken": Comments.ACCESS_TOKEN
+               'X-Requested-With': 'XMLHttpRequest'
             },
             url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
             data: {
