@@ -80,9 +80,7 @@ Comments = {
             accepts: {
                 json: Comments.ACCEPT_JSON
             },
-            data: {
-                'body': commentText
-            },
+            data: '{"body":"'+commentText +'"}',
             dataType: 'json'
         }).done(function(data) {
             callback(data);
