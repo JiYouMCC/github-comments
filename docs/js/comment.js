@@ -20,6 +20,9 @@ Comments = {
         Comments.OWNER = owner;
         Comments.CLIENT_ID = clientId;
         Comments.CLIENT_SECRET = clientSecret;
+        Comments.initAccessToken();
+    },
+    initAccessToken: function() {
         var url = new URL(window.location.href);
         var code = url.searchParams.get("code");
         if (code) {
@@ -36,10 +39,10 @@ Comments = {
         var querystring = encodeQueryData(data);
         location.href = 'https://github.com/login/oauth/authorize?' + querystring;
     },
-    getAccessToken(code) {
+    getAccessToken: function(code) {
        $.ajax({
-           method: "POST",
-           url: Comments.CORS_ANYWHERE + "https://github.com/login/oauth/access_token",
+           method: 'POST',
+           url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
            headers: {
                Accept: 'application/json',
                'X-Requested-With': 'XMLHttpRequest'
@@ -67,10 +70,12 @@ Comments = {
         })
     },
     add: function(issueId, commentText, callback) {
-	    $.ajax({
+        $.ajax({
             method: "POST",
-		    headers: {
-                "authToken": Comments.ACCESS_TOKEN
+            headers: {
+               Accept: 'application/json',
+               'X-Requested-With': 'XMLHttpRequest',
+               "authToken": Comments.ACCESS_TOKEN
             },
             url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
             data: {
