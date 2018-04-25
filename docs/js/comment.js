@@ -85,6 +85,17 @@ Comments = {
             callback(data);
         })
     },
+    getUser: function(callback){
+        $.ajax({
+            url: "https://api.github.com/user?access_token=" + Comments.ACCESS_TOKEN,
+            accepts: {
+                json: Comments.ACCEPT_JSON
+            },
+            dataType: 'json',
+        }).done(function(data) {
+            callback(data);
+        })
+    },
     getReactions: function(commentId, callback) {
         //TODO
          $.ajax({
