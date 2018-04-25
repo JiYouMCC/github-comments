@@ -40,13 +40,13 @@ Comments = {
           method: "POST",
           url: Comments.CORS_ANYWHERE + "https://github.com/login/oauth/access_token",
           headers: {
-			Accept: 'application/json',
-			'X-Requested-With': 'XMLHttpRequest'
-		},
+			  Accept: 'application/json',
+			  'X-Requested-With': 'XMLHttpRequest'
+		  },
           data: {
              'client_id':Comments.CLIENT_ID,
              'client_secret':Comments.CLIENT_SECRET,
-             'code':code 
+             'code':code
           }
        }).done(function( data ) {
 	    if(data.access_token) {
