@@ -11,3 +11,7 @@ date:   2018-04-18 16:07:00 +0800
 [Showdown](http://showdownjs.com/)
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"></script>
+    
+[js-cookie](https://github.com/js-cookie/js-cookie)
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
