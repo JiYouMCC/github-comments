@@ -21,9 +21,7 @@ Comments = {
         var accessToken = Cookies.get(Comments.COOKIE_ACCESS_TOKEN_NAME)
         if (accessToken) {
             Comments.ACCESS_TOKEN = accessToken;
-            Comments.getUser(function(data){
-                Comments.USER_INFO = data;
-            });
+            Comments.getUser();
         } else {
             var url = new URL(window.location.href);
             var code = url.searchParams.get(Comments.PARAM_CODE);
@@ -44,12 +42,17 @@ Comments = {
         };
         location.href = 'https://github.com/login/oauth/authorize?' + $.param(data);
     },
-    logout: function(){
+    logout: function(callback){
         Cookies.remove(Comments.COOKIE_ACCESS_TOKEN_NAME);
         Comments.ACCESS_TOKEN = undefined;
         Comments.USER_INFO = undefined;
+        if (callback) {
+            callback();
+        }
     },
     getAccessToken: function(code) {
+        if (!code)
+            return;
         $.ajax({
             method: 'POST',
             url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
@@ -66,6 +69,7 @@ Comments = {
             if(data.access_token) {
                 Comments.ACCESS_TOKEN = data.access_token;
                 Cookies.set(Comments.COOKIE_ACCESS_TOKEN_NAME, data.access_token);
+                Comments.getUser();
            }
        })
     },
@@ -90,10 +94,18 @@ Comments = {
         })
     },
     getUser: function(callback){
+        if (Comments.USER_INFO){
+            if (callback) {
+                callback(data);
+            }
+
+            return;
+        }
         $.ajax({
             url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
             dataType: 'json',
         }).done(function(data) {
+            Comments.USER_INFO = data;
             if (callback) {
                 callback(data);
             }
