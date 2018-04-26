@@ -1,14 +1,15 @@
 Comments = {
-    REPOS : undefined,
-    OWNER : undefined,
+    ACCEPT_JSON: "application/json",
+    ACCESS_TOKEN: undefined,
     CLIENT_ID: undefined,
     CLIENT_SECRET: undefined,
-    ACCEPT_JSON: "application/json",
-    SCOPE: "public_repo",
-    ACCESS_TOKEN: undefined,
-    PARAM_CODE : 'code',
-    SESSION_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
+    OWNER : undefined,
+    PARAM_CODE : 'code',
+    REPOS : undefined,
+    SCOPE: "public_repo",
+    COOKIE_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
+    USER_INFO: undefined,
     init: function(owner, repository, clientId, clientSecret) {
         Comments.REPOS = repository;
         Comments.OWNER = owner;
@@ -17,9 +18,12 @@ Comments = {
         Comments.initAccessToken();
     },
     initAccessToken: function() {
-        var accessToken = Cookies.get('Comments.SESSION_ACCESS_TOKEN_NAME')
+        var accessToken = Cookies.get(Comments.COOKIE_ACCESS_TOKEN_NAME)
         if (accessToken) {
-            Comments.ACCESS_TOKEN = accessToken;
+            Comments.getUser(function(data){
+                Comments.ACCESS_TOKEN = accessToken;
+                Comments.USER_INFO = data;
+            });
         } else {
             var url = new URL(window.location.href);
             var code = url.searchParams.get(Comments.PARAM_CODE);
@@ -40,6 +44,11 @@ Comments = {
         };
         location.href = 'https://github.com/login/oauth/authorize?' + $.param(data);
     },
+    logout: function(){
+        Cookies.remove(Comments.COOKIE_ACCESS_TOKEN_NAME);
+        Comments.ACCESS_TOKEN = undefined;
+        Comments.USER_INFO = undefined;
+    },
     getAccessToken: function(code) {
         $.ajax({
             method: 'POST',
@@ -56,7 +65,7 @@ Comments = {
         }).done(function(data) {
             if(data.access_token) {
                 Comments.ACCESS_TOKEN = data.access_token;
-                Cookies.set('Comments.SESSION_ACCESS_TOKEN_NAME', data.access_token);
+                Cookies.set(Comments.COOKIE_ACCESS_TOKEN_NAME, data.access_token);
            }
        })
     },
@@ -85,7 +94,9 @@ Comments = {
             url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
             dataType: 'json',
         }).done(function(data) {
-            callback(data);
+            if (callback) {
+                callback(data);
+            }
         })
     },
     getReactions: function(commentId, callback) {
@@ -99,5 +110,8 @@ Comments = {
          }).done(function(data) {
              callback(data);
          })
+    },
+    isLogin: function(){
+        return Boolean(Comments.USER_INFO);
     }
 }
