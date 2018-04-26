@@ -44,14 +44,12 @@ Comments = {
        $.ajax({
            method: 'POST',
            url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
-           accepts: {
-                json: Comments.ACCEPT_JSON
-            },
            data: {
                'client_id':Comments.CLIENT_ID,
                'client_secret':Comments.CLIENT_SECRET,
                'code':code
-           }
+           },
+           dataType: Comments.ACCEPT_JSON
        }).done(function(data) {
            if(data.access_token) {
                Comments.ACCESS_TOKEN = data.access_token;
@@ -62,9 +60,6 @@ Comments = {
     get: function(issueId, callback) {
         $.ajax({
             url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments",
-            accepts: {
-                json: Comments.ACCEPT_JSON
-            },
             dataType: 'json',
         }).done(function(data) {
             callback(data);
@@ -74,9 +69,6 @@ Comments = {
         $.ajax({
             method: 'POST',
             url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments.REPOS + "/issues/" + issueId + "/comments?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
-            accepts: {
-                json: Comments.ACCEPT_JSON
-            },
             data: JSON.stringify({
                 'body': commentText
             }),
@@ -88,9 +80,6 @@ Comments = {
     getUser: function(callback){
         $.ajax({
             url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
-            accepts: {
-                json: Comments.ACCEPT_JSON
-            },
             dataType: 'json',
         }).done(function(data) {
             callback(data);
