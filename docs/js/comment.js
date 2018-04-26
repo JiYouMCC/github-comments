@@ -104,17 +104,13 @@ Comments = {
         $.ajax({
             url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
             dataType: 'json',
-        }).success(function(data) {
-            Comments.USER_INFO = data;
-            if (callback) {
-                callback(data);
+            success: function(data) {
+                Comments.USER_INFO = data;
+                if (callback) {
+                    callback(Comments.USER_INFO);
+                }
             }
-        }).fail(function(data){
-            Comments.USER_INFO = undefined;
-            if (callback) {
-                callback(undefined);
-            }
-        })
+        });
     },
     getReactions: function(commentId, callback) {
         //TODO
