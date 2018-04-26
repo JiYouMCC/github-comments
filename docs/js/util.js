@@ -34,7 +34,7 @@ Util = {
       var userAvatar = data.avatar_url;
       var userLink = data.html_url;
       $("#comments_form").text("");
-      $("<div class='comments_form'></div>").append(
+      $("#comments_form").append(
           $("<div></div>").append(
             $("<a></a>").attr('href', userLink).append(
               $("<img></img>").attr('src', userAvatar).attr('height','20').attr('width','20')
