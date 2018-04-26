@@ -6,7 +6,7 @@ Comments = {
     ACCEPT_JSON: "application/json",
     SCOPE: "public_repo",
     ACCESS_TOKEN: undefined,
-    SESSION_CODE_NAME : 'GIT_CODE',
+    PARAM_CODE : 'code',
     SESSION_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     init: function(owner, repository, clientId, clientSecret) {
@@ -22,13 +22,16 @@ Comments = {
             Comments.ACCESS_TOKEN = accessToken;
         } else {
             var url = new URL(window.location.href);
-            var code = url.searchParams.get(Comments.SESSION_CODE_NAME);
+            var code = url.searchParams.get(Comments.PARAM_CODE);
             if (code) {
                 Comments.getAccessToken(code);
             }
         }
     },
     login: function(redirectUri) {
+        if (!redirectUri) {
+            redirectUri = location.href;
+        }
         var data = {
             scope: Comments.SCOPE,
             redirect_uri: redirectUri, 
