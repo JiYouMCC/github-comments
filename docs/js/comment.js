@@ -20,8 +20,8 @@ Comments = {
     initAccessToken: function() {
         var accessToken = Cookies.get(Comments.COOKIE_ACCESS_TOKEN_NAME)
         if (accessToken) {
+            Comments.ACCESS_TOKEN = accessToken;
             Comments.getUser(function(data){
-                Comments.ACCESS_TOKEN = accessToken;
                 Comments.USER_INFO = data;
             });
         } else {
