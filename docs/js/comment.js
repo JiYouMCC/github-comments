@@ -41,21 +41,24 @@ Comments = {
         location.href = 'https://github.com/login/oauth/authorize?' + $.param(data);
     },
     getAccessToken: function(code) {
-       $.ajax({
-           method: 'POST',
-           url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
-           data: {
-               'client_id':Comments.CLIENT_ID,
-               'client_secret':Comments.CLIENT_SECRET,
-               'code':code
-           },
-           dataType: Comments.ACCEPT_JSON
-       }).done(function(data) {
-           if(data.access_token) {
-               Comments.ACCESS_TOKEN = data.access_token;
-               window.sessionStorage.setItem(Comments.SESSION_ACCESS_TOKEN_NAME, data.access_token);
+        $.ajax({
+            method: 'POST',
+            url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
+            data: {
+                'client_id':Comments.CLIENT_ID,
+                'client_secret':Comments.CLIENT_SECRET,
+                'code':code
+            },
+            accepts: {
+                json: Comments.ACCEPT_JSON
+            },
+            dataType: 'json'
+        }).done(function(data) {
+            if(data.access_token) {
+                Comments.ACCESS_TOKEN = data.access_token;
+                window.sessionStorage.setItem(Comments.SESSION_ACCESS_TOKEN_NAME, data.access_token);
            }
-       })   
+       })
     },
     get: function(issueId, callback) {
         $.ajax({
