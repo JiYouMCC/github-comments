@@ -106,6 +106,11 @@ Comments = {
             dataType: 'json',
             success: function(data) {
                 Comments.USER_INFO = data;
+            },
+            error: function(error) {
+                Comments.USER_INFO = undefined;
+            },
+            complete: function(){
                 if (callback) {
                     callback(Comments.USER_INFO);
                 }
