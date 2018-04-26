@@ -17,7 +17,7 @@ Comments = {
         Comments.initAccessToken();
     },
     initAccessToken: function() {
-        var accessToken = window.sessionStorage.getItem(Comments.SESSION_ACCESS_TOKEN_NAME);
+        var accessToken = Cookies.get('Comments.SESSION_ACCESS_TOKEN_NAME')
         if (accessToken) {
             Comments.ACCESS_TOKEN = accessToken;
         } else {
@@ -56,7 +56,7 @@ Comments = {
         }).done(function(data) {
             if(data.access_token) {
                 Comments.ACCESS_TOKEN = data.access_token;
-                window.sessionStorage.setItem(Comments.SESSION_ACCESS_TOKEN_NAME, data.access_token);
+                Cookies.set('Comments.SESSION_ACCESS_TOKEN_NAME', data.access_token);
            }
        })
     },
