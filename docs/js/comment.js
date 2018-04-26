@@ -1,10 +1,3 @@
-function encodeQueryData(data) {
-    let ret = [];
-    for (let d in data)
-        ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
-    return ret.join('&');
-}
-
 Comments = {
     REPOS : undefined,
     OWNER : undefined,
@@ -91,7 +84,7 @@ Comments = {
     },
     getUser: function(callback){
         $.ajax({
-            url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),,
+            url: "https://api.github.com/user?" + $.param({'access_token':Comments.ACCESS_TOKEN}),
             accepts: {
                 json: Comments.ACCEPT_JSON
             },
