@@ -30,9 +30,9 @@ Util = {
   },
   showForm: function(data) {
     if(data) {
-      var userName = commentData.login;
-      var userAvatar = commentData.avatar_url;
-      var userLink = commentData.html_url;
+      var userName = data.login;
+      var userAvatar = data.avatar_url;
+      var userLink = data.html_url;
       $("#comments_form").text("");
       $("<div class='comments_form'></div>").append(
           $("<div></div>").append(
