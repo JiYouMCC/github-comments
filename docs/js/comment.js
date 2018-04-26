@@ -49,10 +49,10 @@ Comments = {
                 'client_secret':Comments.CLIENT_SECRET,
                 'code':code
             },
-            accepts: {
-                json: Comments.ACCEPT_JSON
+            headers: {
+                Accept: Comments.ACCEPT_JSON,
+                'X-Requested-With': 'XMLHttpRequest'
             },
-            dataType: 'json'
         }).done(function(data) {
             if(data.access_token) {
                 Comments.ACCESS_TOKEN = data.access_token;
