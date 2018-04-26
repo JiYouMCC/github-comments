@@ -8,7 +8,7 @@ Util = {
       var userAvatar = commentData.user.avatar_url;
       var userLink = commentData.user.html_url;
       var date = new Date(commentData.created_at);
-      var converter = new showdown.Converter();      
+      var converter = new showdown.Converter();
       converter.setOption('emoji', true);
       var html = converter.makeHtml(commentData.body);
       $("#comments").append(
@@ -26,6 +26,26 @@ Util = {
           $("<div></div>").append(html).addClass('post-content')
         )
       );
+    }
+  },
+  showForm: function(data) {
+    if(data) {
+      var userName = commentData.login;
+      var userAvatar = commentData.avatar_url;
+      var userLink = commentData.html_url;
+      $("#comments_form").text("");
+      $("<div class='comments_form'></div>").append(
+          $("<div></div>").append(
+            $("<a></a>").attr('href', userLink).append(
+              $("<img></img>").attr('src', userAvatar).attr('height','20').attr('width','20')
+            ).append(
+              $("<span></span>").text(userName).addClass('username')
+            )
+          )
+        )
+    }else {
+      $("#comments_form").text("");
+      $("#comments_form").append($("<a></a>").attr("onclick", 'Comments.login()').text("Login"));
     }
   }
 }

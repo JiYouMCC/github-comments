@@ -96,7 +96,7 @@ Comments = {
     getUser: function(callback){
         if (Comments.USER_INFO){
             if (callback) {
-                callback(data);
+                callback(Comments.USER_INFO);
             }
 
             return;
