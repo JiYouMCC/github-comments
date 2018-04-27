@@ -1,14 +1,14 @@
 GithubComments = {
-    ACCEPT_JSON: "application/json",
     _accessToken: undefined,
     _clientId: undefined,
     _clientSecret: undefined,
-    CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     _owner : undefined,
-    PARAM_CODE : 'code',
     _repos : undefined,
-    SCOPE: "public_repo",
+    ACCEPT_JSON: "application/json",
     COOKIE_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
+    CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
+    PARAM_CODE : 'code',
+    SCOPE: "public_repo",
     Init: function(owner, repository, clientId, clientSecret, callback) {
         GithubComments._repos = repository;
         GithubComments._owner = owner;
@@ -20,7 +20,7 @@ GithubComments = {
         var accessToken = Cookies.get(GithubComments.COOKIE_ACCESS_TOKEN_NAME)
         if (accessToken) {
             GithubComments._accessToken = accessToken;
-            Comments.User.Get(callback);
+            GithubComments.User.Get(callback);
         } else {
             var url = new URL(window.location.href);
             var code = url.searchParams.get(GithubComments.PARAM_CODE);
@@ -122,10 +122,7 @@ GithubComments = {
                 }
             })
         }
-    },
-
-    
-
+    }
 /*    getReactions: function(commentId, callback) {
         //TODO
          $.ajax({
