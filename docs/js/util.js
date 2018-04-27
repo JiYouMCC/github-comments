@@ -44,10 +44,10 @@ Util = {
           )
         );
       $("#comments_form").append(
-        $("<textarea></textarea>").attr('id', 'commnet_text');
+        $("<textarea></textarea>").attr('id', 'commnet_text')
       );
       $("#comments_form").append(
-        $("<button></button>").attr('id', 'add_comment').text("Enter");
+        $("<button></button>").attr('id', 'add_comment').text("Enter")
       );
 
       $("#add_comment").click(function() {
