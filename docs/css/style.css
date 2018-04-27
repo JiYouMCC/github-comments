@@ -1,0 +1,9 @@
+@keyframes inset {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.comment {
+    animation-name: inset;
+    animation-duration: 2s;
+}
