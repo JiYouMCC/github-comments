@@ -33,7 +33,7 @@ Util = {
       });
     } else {
       $("#comments_form").text("");
-      $("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Login()').text("Login"));
+      $("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Login()').text("Login");
     }
   },
   addComment: function(comment) {
@@ -57,7 +57,7 @@ Util = {
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
-        $("<div></div>").append(html).addClass('post-content').addClass('comment_text')
+        $("<div></div>").append(html).addClass('comment_text')
       )
     );
   }
