@@ -2,7 +2,7 @@ Util = {
   showComments: function(data) {
     $("#comments").text("");
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
-    for (var i = data.length - 1; i >= 0; i--) {
+    for (var i = 0; i < data.length; i++) {
       Util.addComment(data[i]);
     }
   },
