@@ -21,10 +21,15 @@ Util = {
             )
           )
         );
+      $("#comments_form").append($("<a></a>").attr("onclick", 'GithubComments.User.Logout(Util.showForm);').text("Logout"));
       $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text'));
       $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
       $("#add_comment").click(function() {
-        GithubComments.Comments.Add(issueId, $("#commnet_text").val(), Util.addComment);
+        GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
+          $("#commnet_text").val("");
+          Util.addComment(data);
+        });
+        
       });
     } else {
       $("#comments_form").text("");
