@@ -33,7 +33,7 @@ Util = {
       });
     } else {
       $("#comments_form").text("");
-      $("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Login()').text("Login");
+      $("#comments_form").append($("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Login()').text("Login"));
     }
   },
   addComment: function(comment) {
