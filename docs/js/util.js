@@ -28,7 +28,7 @@ Util = {
       );
     }
   },
-  showForm: function(userInfo, issueId, addCallback) {
+  showForm: function(userInfo, issueId, clickCallback) {
     if(userInfo) {
       var userName = userInfo.login;
       var userAvatar = userInfo.avatar_url;
@@ -43,19 +43,14 @@ Util = {
             )
           )
         );
-      $("#comments_form").append(
-        $("<textarea></textarea>").attr('id', 'commnet_text')
-      );
-      $("#comments_form").append(
-        $("<button></button>").attr('id', 'add_comment').text("Enter")
-      );
-
+      $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text'));
+      $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
       $("#add_comment").click(function() {
-        Comments.add(issueId, $("#commnet_text").val(), addCallback);
+        GithubComments.Comments.Add(issueId, $("#commnet_text").val(), addCallback);
       });
     } else {
       $("#comments_form").text("");
-      $("#comments_form").append($("<a></a>").attr("onclick", 'Comments.login()').text("Login"));
+      $("#comments_form").append($("<a></a>").attr("onclick", 'GithubComments.User.Login()').text("Login"));
     }
   }
 }
