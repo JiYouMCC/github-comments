@@ -104,7 +104,9 @@ Comments = {
             }),
             dataType: 'json'
         }).done(function(data) {
-            callback(data);
+            if (callback) {
+                callback(data);
+            }
         })
     },
     getUser: function(callback){

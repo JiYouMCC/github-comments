@@ -28,11 +28,11 @@ Util = {
       );
     }
   },
-  showForm: function(data) {
-    if(data) {
-      var userName = data.login;
-      var userAvatar = data.avatar_url;
-      var userLink = data.html_url;
+  showForm: function(userInfo) {
+    if(userInfo) {
+      var userName = userInfo.login;
+      var userAvatar = userInfo.avatar_url;
+      var userLink = userInfo.html_url;
       $("#comments_form").text("");
       $("#comments_form").append(
           $("<div></div>").append(
@@ -42,8 +42,18 @@ Util = {
               $("<span></span>").text(userName).addClass('username')
             )
           )
-        )
-    }else {
+        );
+      $("#comments_form").append(
+        $("<textarea></textarea>").attr('id', 'commnet_text');
+      );
+      $("#comments_form").append(
+        $("<button></button>").attr('id', 'add_comment').text("Enter");
+      );
+
+      $("#add_comment").click(function() {
+        Comments.add(1, $("#commnet_text").val());
+      });
+    } else {
       $("#comments_form").text("");
       $("#comments_form").append($("<a></a>").attr("onclick", 'Comments.login()').text("Login"));
     }
