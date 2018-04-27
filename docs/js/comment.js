@@ -25,7 +25,7 @@ GithubComments = {
             var url = new URL(window.location.href);
             var code = url.searchParams.get(GithubComments.PARAM_CODE);
             if (code) {
-                GithubComments.User.getAccessToken(code, callback);
+                GithubComments.User.GetAccessToken(code, callback);
             } else {
                 if (callback) callback(undefined);
             }
