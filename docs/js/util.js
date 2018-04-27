@@ -28,7 +28,7 @@ Util = {
       );
     }
   },
-  showForm: function(userInfo, issueId, clickCallback) {
+  showForm: function(userInfo, issueId, addCallback) {
     if(userInfo) {
       var userName = userInfo.login;
       var userAvatar = userInfo.avatar_url;
