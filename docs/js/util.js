@@ -1,10 +1,14 @@
 Util = {
   showComments: function(data) {
     $("#comments").text("");
+    ("#comments").append($("<div><span id='comment_count'>0</span> comments in all</div>"))
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
     for (var i = 0; i < data.length; i++) {
       Util.addComment(data[i]);
     }
+    GithubComments.Comments.Count(function(count){
+      $("#comment_count").text(count);
+    });
   },
   showForm: function(userInfo, issueId) {
     if(userInfo) {
@@ -60,5 +64,8 @@ Util = {
         $("<div></div>").append(html).addClass('comment_text')
       )
     );
+    GithubComments.Comments.Count(function(count){
+      $("#comment_count").text(count);
+    });
   }
 }
