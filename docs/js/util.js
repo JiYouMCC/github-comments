@@ -15,7 +15,7 @@ Util = {
       $("#comments_form").append(
           $("<div></div>").append(
             $("<a></a>").attr('href', userLink).append(
-              $("<img></img>").attr('src', userAvatar).attr('height','20').attr('width','20')
+              $("<img></img>").attr('src', userAvatar).addClass('user_img')
             ).append(
               $("<span></span>").text(userName).addClass('username')
             )
@@ -49,7 +49,7 @@ Util = {
       $("<div class='comment'></div>").append(
         $("<div></div>").append(
           $("<a></a>").attr('href', userLink).append(
-            $("<img></img>").attr('src', userAvatar).attr('height','20').attr('width','20')
+            $("<img></img>").attr('src', userAvatar).addClass('user_img')
           ).append(
             $("<span></span>").text(userName).addClass('username')
           )
@@ -57,7 +57,7 @@ Util = {
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
-        $("<div></div>").append(html).addClass('post-content')
+        $("<div></div>").append(html).addClass('post-content').addClass('comment_text')
       )
     );
   }
