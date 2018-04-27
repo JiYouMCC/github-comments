@@ -6,11 +6,11 @@ Util = {
     for (var i = 0; i < data.length; i++) {
       Util.addComment(data[i]);
     }
-    GithubComments.Comments.Count(function(count){
+    GithubComments.Comments.Count(1,function(count){
       $("#comment_count").text(count);
     });
   },
-  showForm: function(userInfo, issueId) {
+  showForm: function(userInfo) {
     if(userInfo) {
       var userName = userInfo.login;
       var userAvatar = userInfo.avatar_url;
@@ -64,7 +64,7 @@ Util = {
         $("<div></div>").append(html).addClass('comment_text')
       )
     );
-    GithubComments.Comments.Count(function(count){
+    GithubComments.Comments.Count(1,function(count){
       $("#comment_count").text(count);
     });
   }
