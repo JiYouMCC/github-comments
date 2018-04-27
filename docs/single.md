@@ -12,7 +12,7 @@ The single test page.
 <script type="text/javascript">
 var showFormCallback = function() {setTimeout(function() {GithubComments.Comment.Get(1, Util.showComments);}, 2000);}
 var getUserCallback = function (data) {Util.showForm(data, 1, showFormCallback);}
-var initCallback = function(){ Comments.User.Get(getUserCallback);};
+var initCallback = function(){ GithubComments.User.Get(getUserCallback);};
 GithubComments.Init("JiYouMCC", "git-comment", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970", initCallback);
 GithubComments.Comments.Get(1, Util.showComments);
 </script>
