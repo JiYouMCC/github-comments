@@ -10,8 +10,7 @@ The single test page.
 <script src="{{ site.baseurl }}/js/comment.js"></script>
 <script src="{{ site.baseurl }}/js/util.js"></script>
 <script type="text/javascript">
-var showFormCallback = function() {setTimeout(function() {GithubComments.Comment.Get(1, Util.showComments);}, 2000);}
-var getUserCallback = function (data) {Util.showForm(data, 1, showFormCallback);}
+var getUserCallback = function (data) {Util.showForm(data, 1);}
 var initCallback = function(){ GithubComments.User.Get(getUserCallback);};
 GithubComments.Init("JiYouMCC", "git-comment", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970", initCallback);
 GithubComments.Comments.Get(1, Util.showComments);
