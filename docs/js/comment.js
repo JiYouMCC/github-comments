@@ -10,23 +10,30 @@ Comments = {
     SCOPE: "public_repo",
     COOKIE_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     USER_INFO: undefined,
-    init: function(owner, repository, clientId, clientSecret) {
+    init: function(owner, repository, clientId, clientSecret, callback) {
         Comments.REPOS = repository;
         Comments.OWNER = owner;
         Comments.CLIENT_ID = clientId;
         Comments.CLIENT_SECRET = clientSecret;
-        Comments.initAccessToken();
+        Comments.initAccessToken(callback);
     },
-    initAccessToken: function() {
+    initAccessToken: function(callback) {
         var accessToken = Cookies.get(Comments.COOKIE_ACCESS_TOKEN_NAME)
         if (accessToken) {
             Comments.ACCESS_TOKEN = accessToken;
             Comments.getUser();
+            if (callback) {
+                callback();
+            }
         } else {
             var url = new URL(window.location.href);
             var code = url.searchParams.get(Comments.PARAM_CODE);
             if (code) {
-                Comments.getAccessToken(code);
+                Comments.getAccessToken(code, callback);
+            } else {
+                if (callback) {
+                    callback();
+                }
             }
         }
     },
@@ -50,9 +57,15 @@ Comments = {
             callback();
         }
     },
-    getAccessToken: function(code) {
-        if (!code)
+    getAccessToken: function(code, callback) {
+        if (!code){
+            if(callback) {
+                callback();
+            }
+
             return;
+        }
+
         $.ajax({
             method: 'POST',
             url: Comments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
@@ -70,8 +83,9 @@ Comments = {
                 Comments.ACCESS_TOKEN = data.access_token;
                 Cookies.set(Comments.COOKIE_ACCESS_TOKEN_NAME, data.access_token);
                 Comments.getUser();
-           }
-       })
+            }
+            callback();
+        })
     },
     get: function(issueId, callback) {
         $.ajax({
