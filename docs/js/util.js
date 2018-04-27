@@ -28,7 +28,7 @@ Util = {
       );
     }
   },
-  showForm: function(userInfo) {
+  showForm: function(userInfo, issueId, addCallback) {
     if(userInfo) {
       var userName = userInfo.login;
       var userAvatar = userInfo.avatar_url;
@@ -51,7 +51,7 @@ Util = {
       );
 
       $("#add_comment").click(function() {
-        Comments.add(1, $("#commnet_text").val());
+        Comments.add(issueId, $("#commnet_text").val(), addCallback);
       });
     } else {
       $("#comments_form").text("");
