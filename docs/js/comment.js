@@ -121,6 +121,17 @@ GithubComments = {
                     callback(data);
                 }
             })
+        },
+        Count: function(issueId, callback) {
+            $.ajax({
+                url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId,
+                dataType: 'json',
+            }).done(function(data) {
+                if (callback)
+                {
+                    callback(data.comments);
+                }
+            })
         }
     }
 /*    getReactions: function(commentId, callback) {
