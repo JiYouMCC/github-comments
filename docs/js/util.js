@@ -73,7 +73,7 @@ Util = {
           ).append(
             $("<span></span>").text(userName).addClass('username')
           ).append(
-            $("<span></span>").text("@TA").onclick(function(){Util.addMention(userName)})
+            $("<span></span>").text("@TA").click(function(){Util.addMention(userName)})
           )
         )
       ).append(
