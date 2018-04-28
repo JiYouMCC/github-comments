@@ -72,6 +72,8 @@ Util = {
             $("<img></img>").attr('src', userAvatar).addClass('user_img')
           ).append(
             $("<span></span>").text(userName).addClass('username')
+          ).append(
+            $("<span></span>").text("@TA").onclick(function(){Util.addMention(userName)})
           )
         )
       ).append(
@@ -81,5 +83,9 @@ Util = {
       ) 
     );
     document.getElementById('Comment_' + commentId).innerHTML = html;
+  },
+  addMention: function(userName) {
+    $("#commnet_text").val($("#commnet_text").val() + "@" + userName);
+    $("#commnet_text").focus();
   }
 }
