@@ -1,7 +1,7 @@
 Util = {
   showComments: function(issueId) {
     $("#comments").text("");
-    $("#comments").append($("<div><span id='comment_count'>0</span> comments in all</div>"))
+    $("#comments").append($("<div><span id='comment_count'>⌛</span> comments in all</div>"))
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
     $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
