@@ -41,7 +41,7 @@ GithubComments = {
                 if(callback) callback(GithubComments._accessToken);
                 return;
             }
-            
+
             if (!code) {
                 var url = new URL(window.location.href);
                 code = url.searchParams.get(GithubComments.PARAM_CODE);

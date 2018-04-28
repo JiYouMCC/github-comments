@@ -15,6 +15,7 @@ The single test page.
 //var initCallback = function(){ GithubComments.User.Get(getUserCallback);};
 GithubComments.Init("JiYouMCC", "git-comment", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970");
 Util.showComments(1);
+Util.showForm(1);
 </script>
 <div id="comments_form"></div>
 <div id="comments"></div>
