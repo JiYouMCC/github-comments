@@ -3,6 +3,7 @@ Util = {
     $("#comments").text("");
     $("#comments").append($("<div><span id='comment_count'>0</span> comments in all</div>"))
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
+    $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
     GithubComments.Comments.Get(issueId, function(data){
       for (var i = 0; i < data.length; i++) {
@@ -54,7 +55,7 @@ Util = {
     var converter = new showdown.Converter();
     converter.setOption('emoji', true);
     var html = converter.makeHtml(commentData.body);
-    $("#comments").prepend(
+    $("#commnets_data").prepend(
       $("<div class='comment'></div>").append(
         $("<div></div>").append(
           $("<a></a>").attr('href', userLink).append(
