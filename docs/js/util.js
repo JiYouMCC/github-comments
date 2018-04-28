@@ -56,6 +56,7 @@ Util = {
   },
   addComment: function(comment) {
     var commentData = comment;
+    var commentId = commentData.id;
     var userName = commentData.user.login;
     var userAvatar = commentData.user.avatar_url;
     var userLink = commentData.user.html_url;
@@ -76,8 +77,9 @@ Util = {
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
-        $("<div></div>").append(html).addClass('comment_text')
+        $("<div></div>").addClass('comment_text').attr('id','Comment_' + commentId)
       )
+      document.getElementById('Comment_' + commentId).innerHTML = html;
     );
   }
 }
