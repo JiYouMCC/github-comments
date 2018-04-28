@@ -29,7 +29,9 @@ Util = {
               ).append(
                 $("<span></span>").text(userName).addClass('username')
               )
-            ).append($("<a></a>").addClass('page-link').attr('id','link_logout').text("Logout"))
+            ).append(
+              $("<a></a>").addClass('page-link').attr('id','link_logout').text("Logout")
+            )
           );
           $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style','width:100%'));
           $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
@@ -41,9 +43,8 @@ Util = {
           });
           $('#link_logout').click(function() {
             GithubComments.User.Logout();
-            Util.showForm(issueId)
+            Util.showForm(issueId);
           });
-          }
         } else {
           $("#comments_form").text("");
           $("#comments_form").append($("<a></a>").attr('id','link_login').addClass('page-link').text("Login");
