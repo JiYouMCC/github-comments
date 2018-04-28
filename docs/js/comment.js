@@ -135,10 +135,8 @@ GithubComments = {
                 var flag = false;
                 for (var i = 0; i < GithubComments.Comments._comments.length; i++) {
                     var comment = GithubComments.Comments._comments[i];
-                    var id = comment.id;
-                    var count = comment.comments;
-                    if (issueId == id) {
-                        if (callback) callback(count);
+                    if (issueId == comment.number) {
+                        if (callback) callback(comment.comments);
                         flag = true;
                         break;
                     }
@@ -159,10 +157,8 @@ GithubComments = {
                         var flag = false;
                         for (var i = 0; i < GithubComments.Comments._comments.length; i++) {
                             var comment = GithubComments.Comments._comments[i];
-                            var id = comment.id;
-                            var count = comment.comments;
-                            if (issueId == id) {
-                                if (callback) callback(count);
+                            if (issueId == comment.number) {
+                                if (callback) callback(comment.comments);
                                 flag = true;
                                 break;
                             }
