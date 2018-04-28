@@ -72,10 +72,10 @@ Util = {
             $("<img></img>").attr('src', userAvatar).addClass('user_img')
           ).append(
             $("<span></span>").text(userName).addClass('username')
-          ).append(
+          )
+        ).append(
             $("<span></span>").text(" @TA").click(function(){Util.addMention(userName)})
           )
-        )
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
