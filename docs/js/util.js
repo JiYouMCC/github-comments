@@ -39,11 +39,13 @@ Util = {
             GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
               $("#commnet_text").val("");
               Util.addComment(data);
+              $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
             });
           });
           $('#link_logout').click(function() {
             GithubComments.User.Logout();
             Util.showForm(issueId);
+
           });
         } else {
           $("#comments_form").text("");
