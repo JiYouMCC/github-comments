@@ -30,7 +30,7 @@ Util = {
               $("<span></span>").text(userName).addClass('username')
             )
           ).append(
-            $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout")
+            $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout").css('cursor', 'pointer')
           )
         );
         $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style', 'width:100%'));
@@ -49,8 +49,7 @@ Util = {
         });
       } else {
         $("#comments_form").text("");
-        $("#comments_form").append($("<a></a>").attr('id', 'link_login').addClass('page-link').text("Login"));
-        $("#link_login").click(GithubComments.User.Login);
+        $("#comments_form").append($("<a></a>").click(GithubComments.User.Login).css('cursor', 'pointer').addClass('page-link').text("Login"));
       }
     });
   },
@@ -74,7 +73,7 @@ Util = {
             $("<span></span>").text(userName).addClass('username')
           )
         ).append(
-            $("<span></span>").text(" @TA").click(function(){Util.addMention(userName)})
+            $("<span></span>").text(" @TA").css('cursor', 'pointer').click(function(){Util.addMention(userName)})
           )
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
