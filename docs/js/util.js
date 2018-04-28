@@ -62,7 +62,7 @@ Util = {
     var date = new Date(commentData.created_at);
     var converter = new showdown.Converter();
     converter.setOption('emoji', true);
-    converter.setFlavor('github');
+    converter.setOption('ghMentions', true);
     var html = converter.makeHtml(commentData.body);
     $("#commnets_data").prepend(
       $("<div class='comment'></div>").append(
