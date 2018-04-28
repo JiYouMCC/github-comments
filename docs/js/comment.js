@@ -5,31 +5,19 @@ GithubComments = {
     _owner : undefined,
     _repos : undefined,
     ACCEPT_JSON: "application/json",
-    COOKIE_ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
+    ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     PARAM_CODE : 'code',
     SCOPE: "public_repo",
-    Init: function(owner, repository, clientId, clientSecret, callback) {
+    Init: function(owner, repository, clientId, clientSecret) {
         GithubComments._repos = repository;
         GithubComments._owner = owner;
         GithubComments._clientId = clientId;
         GithubComments._clientSecret = clientSecret;
-        GithubComments.InitAccessToken(callback);
-    },
-    InitAccessToken: function(callback) {
-        var accessToken = Cookies.get(GithubComments.COOKIE_ACCESS_TOKEN_NAME)
-        if (accessToken) {
-            GithubComments._accessToken = accessToken;
-            GithubComments.User.Get(callback);
-        } else {
-            var url = new URL(window.location.href);
-            var code = url.searchParams.get(GithubComments.PARAM_CODE);
-            if (code) {
-                GithubComments.User.GetAccessToken(code, callback);
-            } else {
-                if (callback) callback(undefined);
-            }
-        }
+
+        // init access token
+        var accessToken = localStorage.getItem(GithubComments.ACCESS_TOKEN_NAME);
+        if (accessToken) GithubComments._accessToken = accessToken;
     },
     User: {
         _userInfo: undefined,
@@ -43,17 +31,22 @@ GithubComments = {
             };
             location.href = 'https://github.com/login/oauth/authorize?' + $.param(data);
         },
-        Logout: function(callback) {
-            Cookies.remove(GithubComments.COOKIE_ACCESS_TOKEN_NAME);
+        Logout: function() {
+            localStorage.removeItem(GithubComments.ACCESS_TOKEN_NAME);
             GithubComments._accessToken = undefined;
             GithubComments.User._userInfo = undefined;
-            if (callback) callback();
         },
         GetAccessToken: function(code, callback) {
+            if (!code) {
+                var url = new URL(window.location.href);
+                code = url.searchParams.get(GithubComments.PARAM_CODE);
+            }
+
             if (!code) {
                 if(callback) callback(undefined);
                 return;
             }
+
             $.ajax({
                 method: 'POST',
                 url: GithubComments.CORS_ANYWHERE + 'https://github.com/login/oauth/access_token',
@@ -69,30 +62,31 @@ GithubComments = {
             }).done(function(data) {
                 if(data.access_token) {
                     GithubComments._accessToken = data.access_token;
-                    Cookies.set(GithubComments.COOKIE_ACCESS_TOKEN_NAME, data.access_token);
-                    GithubComments.User.Get();
+                    localStorage.setItem(GithubComments.ACCESS_TOKEN_NAME, data.access_token);
                 }
 
-                callback(GithubComments._accessToken);
-            })
+                if(callback) callback(data.access_token);
+            });
         },
-        Get: function(callback){
+        Get: function(callback) {
+            if (!GithubComments._accessToken) {
+                if (callback) callback(undefined);
+                return;
+            }
+
             if (GithubComments.User._userInfo){
                 if (callback) callback(GithubComments.User._userInfo);
                 return;
             }
+
             $.ajax({
                 url: "https://api.github.com/user?" + $.param({'access_token':GithubComments._accessToken}),
                 dataType: 'json',
                 success: function(data) {
                     GithubComments.User._userInfo = data;
-                },
-                error: function(error) {
-                    GithubComments.User._userInfo = undefined;
-                },
-                complete: function(){
-                    if (callback) callback(GithubComments.User._userInfo);
                 }
+            }).done(function(data) {
+                if (callback) callback(data);
             });
         },
         IsLogin: function() {
@@ -109,6 +103,10 @@ GithubComments = {
             })
         },
         Add: function(issueId, commentText, callback) {
+            if (!GithubComments.User.IsLogin) {
+                if(callback) callback(undefined);
+            }
+
             $.ajax({
                 method: 'POST',
                 url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId + "/comments?" + $.param({'access_token':GithubComments._accessToken}),
@@ -117,9 +115,7 @@ GithubComments = {
                 }),
                 dataType: 'json'
             }).done(function(data) {
-                if (callback) {
-                    callback(data);
-                }
+                if (callback) callback(data);
             })
         },
         Count: function(issueId, callback) {
