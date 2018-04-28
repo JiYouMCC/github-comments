@@ -148,7 +148,7 @@ GithubComments = {
                     if (callback) callback(undefined);
             } else {
                 $.ajax({
-                    url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/",
+                    url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues",
                     dataType: 'json',
                 }).done(function(data) {
                     if (data) {
