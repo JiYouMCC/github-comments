@@ -37,6 +37,11 @@ GithubComments = {
             GithubComments.User._userInfo = undefined;
         },
         GetAccessToken: function(code, callback) {
+            if (GithubComments._accessToken) {
+                if(callback) callback(GithubComments._accessToken);
+                return;
+            }
+            
             if (!code) {
                 var url = new URL(window.location.href);
                 code = url.searchParams.get(GithubComments.PARAM_CODE);
@@ -69,24 +74,26 @@ GithubComments = {
             });
         },
         Get: function(callback) {
-            if (!GithubComments._accessToken) {
+            GithubComments.User.GetAccessToken(undefined, function(accessToken) {
+                if (!GithubComments._accessToken) {
                 if (callback) callback(undefined);
-                return;
-            }
-
-            if (GithubComments.User._userInfo){
-                if (callback) callback(GithubComments.User._userInfo);
-                return;
-            }
-
-            $.ajax({
-                url: "https://api.github.com/user?" + $.param({'access_token':GithubComments._accessToken}),
-                dataType: 'json',
-                success: function(data) {
-                    GithubComments.User._userInfo = data;
+                    return;
                 }
-            }).done(function(data) {
-                if (callback) callback(data);
+
+                if (GithubComments.User._userInfo){
+                    if (callback) callback(GithubComments.User._userInfo);
+                    return;
+                }
+
+                $.ajax({
+                    url: "https://api.github.com/user?" + $.param({'access_token':GithubComments._accessToken}),
+                    dataType: 'json',
+                    success: function(data) {
+                        GithubComments.User._userInfo = data;
+                    }
+                }).done(function(data) {
+                    if (callback) callback(data);
+                });
             });
         },
         IsLogin: function() {

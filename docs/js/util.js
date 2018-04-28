@@ -14,13 +14,14 @@ Util = {
       $("#comment_count").text(count);
     });
   },
-  showForm: function(userInfo) {
-    if(userInfo) {
-      var userName = userInfo.login;
-      var userAvatar = userInfo.avatar_url;
-      var userLink = userInfo.html_url;
-      $("#comments_form").text("");
-      $("#comments_form").append(
+  showForm: function(issueId) {
+    if (GithubComments.User.IsLogin) {
+      GithubComments.User.Get(function(userInfo) {
+        var userName = userInfo.login;
+        var userAvatar = userInfo.avatar_url;
+        var userLink = userInfo.html_url;
+        $("#comments_form").text("");
+        $("#comments_form").append(
           $("<div></div>").append(
             $("<a></a>").attr('href', userLink).append(
               $("<img></img>").attr('src', userAvatar).addClass('user_img')
@@ -29,15 +30,15 @@ Util = {
             )
           )
         );
-      $("#comments_form").append($("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Logout(Util.showForm);').text("Logout"));
-      $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text'));
-      $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
-      $("#add_comment").click(function() {
-        GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
-          $("#commnet_text").val("");
-          Util.addComment(data);
+        $("#comments_form").append($("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Logout(Util.showForm);').text("Logout"));
+        $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text'));
+        $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
+        $("#add_comment").click(function() {
+          GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
+            $("#commnet_text").val("");
+            Util.addComment(data);
+          });
         });
-        
       });
     } else {
       $("#comments_form").text("");
@@ -68,8 +69,5 @@ Util = {
         $("<div></div>").append(html).addClass('comment_text')
       )
     );
-    GithubComments.Comments.Count(1,function(count){
-      $("#comment_count").text(count);
-    });
   }
 }
