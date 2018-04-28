@@ -47,7 +47,7 @@ Util = {
           });
         } else {
           $("#comments_form").text("");
-          $("#comments_form").append($("<a></a>").attr('id','link_login').addClass('page-link').text("Login");
+          $("#comments_form").append($("<a></a>").attr('id','link_login').addClass('page-link').text("Login"));
           $("#link_login").click(GithubComments.User.Login);
         }
       });
