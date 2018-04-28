@@ -29,10 +29,9 @@ Util = {
               ).append(
                 $("<span></span>").text(userName).addClass('username')
               )
-            )
+            ).append($("<a></a>").addClass('page-link').attr('id','link_logout').text("Logout"))
           );
-          $("#comments_form").append($("<a></a>").addClass('page-link').attr('id','link_logout').text("Logout"));
-          $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text'));
+          $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style','width:100%'));
           $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
           $("#add_comment").click(function() {
             GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
@@ -47,7 +46,8 @@ Util = {
           }
         } else {
           $("#comments_form").text("");
-          $("#comments_form").append($("<a></a>").addClass('page-link').attr("onclick", 'GithubComments.User.Login()').text("Login"));
+          $("#comments_form").append($("<a></a>").attr('id','link_login').addClass('page-link').text("Login");
+          $("#link_login").click(GithubComments.User.Login);
         }
       });
   },
