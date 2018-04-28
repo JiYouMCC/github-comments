@@ -5,54 +5,54 @@ Util = {
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
     $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
-    GithubComments.Comments.Get(issueId, function(data){
+    GithubComments.Comments.Get(issueId, function(data) {
       for (var i = 0; i < data.length; i++) {
         Util.addComment(data[i]);
       }
     });
-    
-    GithubComments.Comments.Count(issueId, function(count){
+
+    GithubComments.Comments.Count(issueId, function(count) {
       $("#comment_count").text(count);
     });
   },
   showForm: function(issueId) {
-      GithubComments.User.Get(function(userInfo) {
-        if(userInfo) {
-          var userName = userInfo.login;
-          var userAvatar = userInfo.avatar_url;
-          var userLink = userInfo.html_url;
-          $("#comments_form").text("");
-          $("#comments_form").append(
-            $("<div></div>").append(
-              $("<a></a>").attr('href', userLink).append(
-                $("<img></img>").attr('src', userAvatar).addClass('user_img')
-              ).append(
-                $("<span></span>").text(userName).addClass('username')
-              )
+    GithubComments.User.Get(function(userInfo) {
+      if (userInfo) {
+        var userName = userInfo.login;
+        var userAvatar = userInfo.avatar_url;
+        var userLink = userInfo.html_url;
+        $("#comments_form").text("");
+        $("#comments_form").append(
+          $("<div></div>").append(
+            $("<a></a>").attr('href', userLink).append(
+              $("<img></img>").attr('src', userAvatar).addClass('user_img')
             ).append(
-              $("<a></a>").addClass('page-link').attr('id','link_logout').text("Logout")
+              $("<span></span>").text(userName).addClass('username')
             )
-          );
-          $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style','width:100%'));
-          $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
-          $("#add_comment").click(function() {
-            GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data){
-              $("#commnet_text").val("");
-              Util.addComment(data);
-              $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
-            });
+          ).append(
+            $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout")
+          )
+        );
+        $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style', 'width:100%'));
+        $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
+        $("#add_comment").click(function() {
+          GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data) {
+            $("#commnet_text").val("");
+            Util.addComment(data);
+            $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
           });
-          $('#link_logout').click(function() {
-            GithubComments.User.Logout();
-            Util.showForm(issueId);
+        });
+        $('#link_logout').click(function() {
+          GithubComments.User.Logout();
+          Util.showForm(issueId);
 
-          });
-        } else {
-          $("#comments_form").text("");
-          $("#comments_form").append($("<a></a>").attr('id','link_login').addClass('page-link').text("Login"));
-          $("#link_login").click(GithubComments.User.Login);
-        }
-      });
+        });
+      } else {
+        $("#comments_form").text("");
+        $("#comments_form").append($("<a></a>").attr('id', 'link_login').addClass('page-link').text("Login"));
+        $("#link_login").click(GithubComments.User.Login);
+      }
+    });
   },
   addComment: function(comment) {
     var commentData = comment;
@@ -77,9 +77,9 @@ Util = {
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
-        $("<div></div>").addClass('comment_text').attr('id','Comment_' + commentId)
-      )
-      document.getElementById('Comment_' + commentId).innerHTML = html;
+        $("<div></div>").addClass('comment_text').attr('id', 'Comment_' + commentId)
+      ) 
     );
+    document.getElementById('Comment_' + commentId).innerHTML = html;
   }
 }
