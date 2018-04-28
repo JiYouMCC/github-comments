@@ -73,7 +73,7 @@ Util = {
           ).append(
             $("<span></span>").text(userName).addClass('username')
           ).append(
-            $("<span></span>").text("@TA").click(function(){Util.addMention(userName)})
+            $("<span></span>").text(" @TA").click(function(){Util.addMention(userName)})
           )
         )
       ).append(
@@ -85,7 +85,7 @@ Util = {
     document.getElementById('Comment_' + commentId).innerHTML = html;
   },
   addMention: function(userName) {
-    $("#commnet_text").val($("#commnet_text").val() + "@" + userName);
+    $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");
     $("#commnet_text").focus();
   }
 }
