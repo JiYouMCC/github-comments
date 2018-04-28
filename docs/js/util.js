@@ -1,12 +1,16 @@
 Util = {
-  showComments: function(data) {
+  showComments: function(issueId) {
     $("#comments").text("");
     $("#comments").append($("<div><span id='comment_count'>0</span> comments in all</div>"))
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
-    for (var i = 0; i < data.length; i++) {
-      Util.addComment(data[i]);
-    }
-    GithubComments.Comments.Count(1,function(count){
+
+    GithubComments.Comments.Get(issueId, function(data){
+      for (var i = 0; i < data.length; i++) {
+        Util.addComment(data[i]);
+      }
+    });
+    
+    GithubComments.Comments.Count(issueId, function(count){
       $("#comment_count").text(count);
     });
   },
