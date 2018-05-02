@@ -9,7 +9,9 @@ GithubComments = {
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
-    ERROR: {},
+    ERROR: {
+        ISSUE_NOT_FOUND: "Comment issue not found, maybe not created."
+    },
     Init: function(owner, repository, clientId, clientSecret) {
         GithubComments._repos = repository;
         GithubComments._owner = owner;
@@ -109,8 +111,26 @@ GithubComments = {
             $.ajax({
                 url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId + "/comments",
                 dataType: 'json',
-                error: function (request, status, error) {
-                    alert(request.responseText);
+                error: function(request, status, error) {
+                    if (request.status == '404') {
+                        console.log(GithubComments.ERROR.ISSUE_NOT_FOUND);
+                    }
+
+                    if (callback) {
+                        callback({
+                            'status': false,
+                            'data': GithubComments.ERROR.ISSUE_NOT_FOUND
+                        })
+                    }
+
+                },
+                success: function(data) {
+                    if (callback) {
+                        callback({
+                            'status': true,
+                            'data': data
+                        })
+                    }
                 }
             }).done(function(data) {
                 callback(data);
@@ -173,6 +193,11 @@ GithubComments = {
                     }
                 });
             }
+        }
+    },
+    Issue: {
+        Create: function(issueId, callback) {
+
         }
     }
 }

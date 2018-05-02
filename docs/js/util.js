@@ -5,9 +5,11 @@ Util = {
     $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
     $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
-    GithubComments.Comments.Get(issueId, function(data) {
-      for (var i = 0; i < data.length; i++) {
-        Util.addComment(data[i]);
+    GithubComments.Comments.Get(issueId, function(result) {
+      if (result.status) {
+        for (var i = 0; i < result.data.length; i++) {
+          Util.addComment(result.data[i]);
+        }
       }
     });
 
@@ -73,13 +75,15 @@ Util = {
             $("<span></span>").text(userName).addClass('username')
           )
         ).append(
-            $("<span></span>").text(" @TA").css('cursor', 'pointer').click(function(){Util.addMention(userName)})
-          )
+          $("<span></span>").text(" @TA").css('cursor', 'pointer').click(function() {
+            Util.addMention(userName)
+          })
+        )
       ).append(
         $("<span></span>").text(date).addClass('post-meta')
       ).append(
         $("<div></div>").addClass('comment_text').attr('id', 'Comment_' + commentId)
-      ) 
+      )
     );
     document.getElementById('Comment_' + commentId).innerHTML = html;
   },
