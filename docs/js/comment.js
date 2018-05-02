@@ -9,6 +9,7 @@ GithubComments = {
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
+    ERROR: {},
     Init: function(owner, repository, clientId, clientSecret) {
         GithubComments._repos = repository;
         GithubComments._owner = owner;
@@ -108,6 +109,9 @@ GithubComments = {
             $.ajax({
                 url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId + "/comments",
                 dataType: 'json',
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
             }).done(function(data) {
                 callback(data);
             })
@@ -171,17 +175,4 @@ GithubComments = {
             }
         }
     }
-    /*    getReactions: function(commentId, callback) {
-            //TODO
-             $.ajax({
-                 url: "https://api.github.com/repos/" + Comments.OWNER + "/" + Comments._repos + "/issues/comments/" + commentId + "/reactions",
-                 accepts: {
-                     json: "application/vnd.github.squirrel-girl-preview"
-                 },
-                 dataType: 'json',
-             }).done(function(data) {
-                 callback(data);
-             })
-        },*/
-
 }
