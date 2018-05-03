@@ -10,8 +10,6 @@ Util = {
         for (var i = 0; i < result.data.length; i++) {
           Util.addComment(result.data[i]);
         }
-      } else {
-        $("#comments").text("");
       }
     });
 
@@ -60,9 +58,6 @@ Util = {
             $("#comments_form").append($("<a></a>").click(GithubComments.User.Login).css('cursor', 'pointer').addClass('page-link').text("Login"));
           }
         });
-      } else {
-          $("#comments_form").text("");
-          $("#comments_form").append($("<p>No comment.</p>"));
       }
     });
   },
