@@ -1,27 +1,26 @@
 Util = {
-    showComments: function(issueId) {
-      $("#comments").text("");
-      $("#comments").append($("<div><span id='comment_count'>⌛</span> comments in all</div>"))
-      $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
-      $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
+  showComments: function(issueId) {
+    $("#comments").text("");
+    $("#comments").append($("<div><span id='comment_count'>⌛</span> comments in all</div>"))
+    $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
+    $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
-      GithubComments.Comments.Get(issueId, function(result) {
-        if (result.status) {
-          for (var i = 0; i < result.data.length; i++) {
-            Util.addComment(result.data[i]);
-          }
-          Util.showForm(issueId);
-          GithubComments.Comments.Count(issueId, function(count) {
-            $("#comment_count").text(count);
-          });
-        } else {
-          if (result.data == GithubComments.ERROR.ISSUE_NOT_FOUND) {
-            $("#comments").text("");
-            $("#comments").append($("<div></div>").text("No comment.").addClass('post-list-heading'));
-          }
+    GithubComments.Comments.Get(issueId, function(result) {
+      if (result.status) {
+        for (var i = 0; i < result.data.length; i++) {
+          Util.addComment(result.data[i]);
         }
-      });
-    }
+        Util.showForm(issueId);
+        GithubComments.Comments.Count(issueId, function(count) {
+          $("#comment_count").text(count);
+        });
+      } else {
+        if (result.data == GithubComments.ERROR.ISSUE_NOT_FOUND) {
+          $("#comments").text("");
+          $("#comments").append($("<div></div>").text("No comment.").addClass('post-list-heading'));
+        }
+      }
+    });
   },
   showForm: function(issueId) {
     GithubComments.User.Get(function(userInfo) {
@@ -64,9 +63,8 @@ Util = {
         }).css('cursor', 'pointer').addClass('page-link').text("Login"));
       }
     });
-  }
-},
-addComment: function(comment) {
+  },
+  addComment: function(comment) {
     var commentData = comment;
     var commentId = commentData.id;
     var userName = commentData.user.login;
