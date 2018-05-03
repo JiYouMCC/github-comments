@@ -113,35 +113,6 @@ GithubComments = {
     Comments: {
         _comments: undefined,
         Get: function(issueId, callback) {
-            var request = new XMLHttpRequest();
-            request.open('GET', GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments', true);
-            request.responseType = XMLHttpRequestResponseType.JSON;
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    if (callback) {
-                        callback({
-                            'status': true,
-                            'data': request.responseText
-                        })
-                    }
-                } else {
-                    if (callback) {
-                        callback({
-                            'status': false,
-                            'data': request.responseText
-                        })
-                    }
-                }
-            };
-
-            request.onerror = function() {
-                // There was a connection error of some sort
-            };
-
-            request.send();
-
-
-
             $.ajax({
                 url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
                 dataType: 'json',
