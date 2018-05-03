@@ -38,10 +38,12 @@ Util = {
         $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style', 'width:100%'));
         $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
         $("#add_comment").click(function() {
-          GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(data) {
-            $("#commnet_text").val("");
-            Util.addComment(data);
-            $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
+          GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(result) {
+            if (result.status) {
+              $("#commnet_text").val("");
+              Util.addComment(result.data);
+              $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
+            }
           });
         });
         $('#link_logout').click(function() {

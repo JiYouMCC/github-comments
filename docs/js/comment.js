@@ -9,8 +9,11 @@ GithubComments = {
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
+    GITHUB_GPI: 'https://api.github.com/',
     ERROR: {
-        ISSUE_NOT_FOUND: "Comment issue not found, maybe not created."
+        ISSUE_NOT_FOUND: "Comment issue not found, maybe not created.",
+        UNHANDLE_EXCEPTION: "Error",
+        NOT_LOGIN: "User has not login."
     },
     Init: function(owner, repository, clientId, clientSecret) {
         GithubComments._repos = repository;
@@ -32,7 +35,9 @@ GithubComments = {
                 client_id: GithubComments._clientId,
                 client_secret: GithubComments._clientSecret
             };
-            location.href = 'https://github.com/login/oauth/authorize?' + $.param(data);
+            location.href = 'https://github.com/login/oauth/authorize?' + Object.keys(data).map(function(k) {
+                return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+            }).join('&');
         },
         Logout: function() {
             localStorage.removeItem(GithubComments.ACCESS_TOKEN_NAME);
@@ -109,17 +114,18 @@ GithubComments = {
         _comments: undefined,
         Get: function(issueId, callback) {
             $.ajax({
-                url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId + "/comments",
+                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
                 dataType: 'json',
                 error: function(request, status, error) {
+                    var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
                     if (request.status == '404') {
-                        console.log(GithubComments.ERROR.ISSUE_NOT_FOUND);
+                        error = GithubComments.ERROR.ISSUE_NOT_FOUND;
                     }
 
                     if (callback) {
                         callback({
                             'status': false,
-                            'data': GithubComments.ERROR.ISSUE_NOT_FOUND
+                            'data': error
                         })
                     }
 
@@ -138,21 +144,28 @@ GithubComments = {
         },
         Add: function(issueId, commentText, callback) {
             if (!GithubComments.User.IsLogin) {
-                if (callback) callback(undefined);
+                if (callback) callback({
+                    'status': false,
+                    'data': GithubComments.ERROR.NOT_LOGIN
+                });
             }
 
             $.ajax({
                 method: 'POST',
-                url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId + "/comments?" + $.param({
+                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments?' + $.param({
                     'access_token': GithubComments._accessToken
                 }),
                 data: JSON.stringify({
                     'body': commentText
                 }),
-                dataType: 'json'
-            }).done(function(data) {
-                if (callback) callback(data);
-            })
+                dataType: 'json',
+                success: function(data) {
+                    if (callback) callback({
+                        'status': true,
+                        'data': data
+                    });
+                }
+            });
         },
         Count: function(issueId, callback) {
             if (GithubComments.Comments._comments) {
