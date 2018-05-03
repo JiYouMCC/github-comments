@@ -15,7 +15,7 @@ Util = {
           $("#comment_count").text(count);
         });
       } else {
-        if (result.data == GithubComments.ERROR.ISSUE_NOT_FOUND) {
+        if (result.data == GithubComments.ERROR.ISSUE_ID_NOT_EXIST) {
           $("#comments").text("");
           $("#comments").append($("<div></div>").text("No comment.").addClass('post-list-heading'));
         }
