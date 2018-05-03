@@ -55,7 +55,7 @@ Util = {
             });
           } else {
             $("#comments_form").text("");
-            $("#comments_form").append($("<a></a>").click(GithubComments.User.Login).css('cursor', 'pointer').addClass('page-link').text("Login"));
+            $("#comments_form").append($("<a></a>").click(function(){GithubComments.User.Login();}).css('cursor', 'pointer').addClass('page-link').text("Login"));
           }
         });
       }
