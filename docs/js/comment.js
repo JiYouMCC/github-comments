@@ -13,7 +13,8 @@ GithubComments = {
     ERROR: {
         ISSUE_NOT_FOUND: "Comment issue not found, maybe not created.",
         UNHANDLE_EXCEPTION: "Error",
-        NOT_LOGIN: "User has not login."
+        NOT_LOGIN: "User has not login.",
+        ISSUE_ID_NOT_EXIST: "The issue id not exist"
     },
     Init: function(owner, repository, clientId, clientSecret) {
         GithubComments._repos = repository;
@@ -113,6 +114,15 @@ GithubComments = {
     Comments: {
         _comments: undefined,
         Get: function(issueId, callback) {
+            if(!issueId) {
+                if (callback) {
+                        callback({
+                            'status': false,
+                            'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
+                        })
+                    }
+                return;
+            }
             $.ajax({
                 url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
                 dataType: 'json',
