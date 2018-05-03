@@ -10,6 +10,8 @@ Util = {
         for (var i = 0; i < result.data.length; i++) {
           Util.addComment(result.data[i]);
         }
+      } else {
+        $("#comments").text("");
       }
     });
 
