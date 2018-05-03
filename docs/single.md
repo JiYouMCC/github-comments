@@ -14,9 +14,6 @@ The single test page.
 <script src="{{ site.baseurl }}/js/util.js"></script>
 <script src="{{ site.baseurl }}/js/gh-emoji.min.js"></script>
 <script type="text/javascript">
-import { load, parse } from 'gh-emoji'
-</script>
-<script type="text/javascript">
 GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970");
 Util.showComments({{ page.issue }});
 Util.showForm({{ page.issue }});
