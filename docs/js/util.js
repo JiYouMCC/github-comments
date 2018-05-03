@@ -1,65 +1,69 @@
 Util = {
-  showComments: function(issueId) {
-    $("#comments").text("");
-    $("#comments").append($("<div><span id='comment_count'>⌛</span> comments in all</div>"))
-    $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
-    $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
+    showComments: function(issueId) {
+      $("#comments").text("");
+      $("#comments").append($("<div><span id='comment_count'>⌛</span> comments in all</div>"))
+      $("#comments").append($("<div></div>").text("Comments").addClass('post-list-heading'));
+      $("#comments").append($("<div></div>").attr('id', 'commnets_data'))
 
-    GithubComments.Comments.Get(issueId, function(result) {
-      if (result.status) {
-        for (var i = 0; i < result.data.length; i++) {
-          Util.addComment(result.data[i]);
-        }
-      }
-    });
-
-    GithubComments.Comments.Count(issueId, function(count) {
-      $("#comment_count").text(count);
-    });
-  },
-  showForm: function(issueId) {
-    GithubComments.Comments.Get(issueId, function(result) {
-      if (result.status) {
-        GithubComments.User.Get(function(userInfo) {
-          if (userInfo) {
-            var userName = userInfo.login;
-            var userAvatar = userInfo.avatar_url;
-            var userLink = userInfo.html_url;
-            $("#comments_form").text("");
-            $("#comments_form").append(
-              $("<div></div>").append(
-                $("<a></a>").attr('href', userLink).append(
-                  $("<img></img>").attr('src', userAvatar).addClass('user_img')
-                ).append(
-                  $("<span></span>").text(userName).addClass('username')
-                )
-              ).append(
-                $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout").css('cursor', 'pointer')
-              )
-            );
-            $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style', 'width:100%'));
-            $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
-            $("#add_comment").click(function() {
-              GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(result) {
-                if (result.status) {
-                  $("#commnet_text").val("");
-                  Util.addComment(result.data);
-                  $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
-                }
-              });
-            });
-            $('#link_logout').click(function() {
-              GithubComments.User.Logout();
-              Util.showForm(issueId);
-
-            });
-          } else {
-            $("#comments_form").text("");
-            $("#comments_form").append($("<a></a>").click(function(){GithubComments.User.Login();}).css('cursor', 'pointer').addClass('page-link').text("Login"));
+      GithubComments.Comments.Get(issueId, function(result) {
+        if (result.status) {
+          for (var i = 0; i < result.data.length; i++) {
+            Util.addComment(result.data[i]);
           }
-        });
-      }
-    });
+          Util.showForm(issueId);
+          GithubComments.Comments.Count(issueId, function(count) {
+            $("#comment_count").text(count);
+          });
+        } else {
+          if (result.data == GithubComments.ERROR.ISSUE_NOT_FOUND) {
+            $("#comments").text("");
+            $("#comments").append($("<div></div>").text("No comment.").addClass('post-list-heading'));
+          }
+        }
+      });
+    },
+    showForm: function(issueId) {
+      GithubComments.User.Get(function(userInfo) {
+        if (userInfo) {
+          var userName = userInfo.login;
+          var userAvatar = userInfo.avatar_url;
+          var userLink = userInfo.html_url;
+          $("#comments_form").text("");
+          $("#comments_form").append(
+            $("<div></div>").append(
+              $("<a></a>").attr('href', userLink).append(
+                $("<img></img>").attr('src', userAvatar).addClass('user_img')
+              ).append(
+                $("<span></span>").text(userName).addClass('username')
+              )
+            ).append(
+              $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout").css('cursor', 'pointer')
+            )
+          );
+          $("#comments_form").append($("<textarea></textarea>").attr('id', 'commnet_text').attr('style', 'width:100%'));
+          $("#comments_form").append($("<button></button>").attr('id', 'add_comment').text("Enter"));
+          $("#add_comment").click(function() {
+            GithubComments.Comments.Add(issueId, $("#commnet_text").val(), function(result) {
+              if (result.status) {
+                $("#commnet_text").val("");
+                Util.addComment(result.data);
+                $("#comment_count").text(parseInt($("#comment_count").text()) + 1);
+              }
+            });
+          });
+          $('#link_logout').click(function() {
+            GithubComments.User.Logout();
+            Util.showForm(issueId);
+
+          });
+        } else {
+          $("#comments_form").text("");
+          $("#comments_form").append($("<a></a>").click(function() {
+            GithubComments.User.Login();
+          }).css('cursor', 'pointer').addClass('page-link').text("Login"));
+        }
+      });
+    }
   },
   addComment: function(comment) {
     var commentData = comment;
