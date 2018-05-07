@@ -1,6 +1,14 @@
 ---
 layout: default
 ---
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.6/showdown.min.js"></script>
+<script src="{{ site.baseurl }}/js/comment.js"></script>
+<script src="{{ site.baseurl }}/js/util.js"></script>
+<script type="text/javascript">
+GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970");
+</script>
 <div class="home">
   <h1 class="page-heading">Posts</h1>
   <ul class="post-list">
@@ -10,8 +18,11 @@ layout: default
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
-        <h3>Comments(<span id="comments_{{ post.id }}"></span>)</h3>        
+        <h3>Comments(<span id="comments_{{ post.issue }}"></span>)</h3>        
       </li>
+<script type="text/javascript">
+GithubComments.Comments.Count("{{ post.issue }}", function(count){$("#"comments_{{ post.issue }}).text(count)});
+</script>
     {% endfor %}
   </ul>
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
