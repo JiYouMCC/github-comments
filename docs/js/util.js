@@ -74,9 +74,12 @@ Util = {
     var userLink = commentData.user.html_url;
     var date = new Date(commentData.created_at);
     var converter = new showdown.Converter();
-    converter.setOption('emoji', true);
     converter.setOption('ghMentions', true);
     var html = converter.makeHtml(commentData.body);
+    
+
+
+
     $("#commnets_data").prepend(
       $("<div class='comment'></div>").append(
         $("<div></div>").append(
@@ -96,7 +99,10 @@ Util = {
         $("<div></div>").addClass('comment_text').attr('id', 'Comment_' + commentId)
       )
     );
-    document.getElementById('Comment_' + commentId).innerHTML = html;
+    GithubComments.Emoji.Parse(html, function(htmlResult){
+ document.getElementById('Comment_' + commentId).innerHTML = htmlResult;
+    })
+   
   },
   addMention: function(userName) {
     $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");
