@@ -73,13 +73,6 @@ Util = {
     var userAvatar = commentData.user.avatar_url;
     var userLink = commentData.user.html_url;
     var date = new Date(commentData.created_at);
-    var converter = new showdown.Converter();
-    converter.setOption('ghMentions', true);
-    var html = converter.makeHtml(commentData.body);
-    
-
-
-
     $("#commnets_data").prepend(
       $("<div class='comment'></div>").append(
         $("<div></div>").append(
@@ -99,10 +92,15 @@ Util = {
         $("<div></div>").addClass('comment_text').attr('id', 'Comment_' + commentId)
       )
     );
-    GithubComments.Emoji.Parse(html, function(htmlResult){
- document.getElementById('Comment_' + commentId).innerHTML = htmlResult;
+
+
+    GithubComments.Emoji.Parse(commentData.body, function(htmlResult) {
+      var converter = new showdown.Converter();
+      converter.setOption('ghMentions', true);
+      var html = converter.makeHtml(htmlResult);
+      document.getElementById('Comment_' + commentId).innerHTML = html;
     })
-   
+
   },
   addMention: function(userName) {
     $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");
