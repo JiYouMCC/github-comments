@@ -237,8 +237,8 @@ GithubComments = {
                     Accept: GithubComments.ACCEPT_JSON,
                 },
             }).done(function(data) {
-                localStorage.setItem(GithubComments.EMOJI_JSON, data);
-                GithubComments._emojiJson = data;
+                localStorage.setItem(GithubComments.EMOJI_JSON, JSON.stringify(data));
+                GithubComments._emojiJson = JSON.stringify(data);
                 if (callback) {
                     callback(data)
                 }
