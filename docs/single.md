@@ -14,35 +14,7 @@ The single test page.
 <script src="{{ site.baseurl }}/js/util.js"></script>
 <script src="{{ site.baseurl }}/js/gh-emoji.min.js"></script>
 <script type="text/javascript">
-GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970");
-Util.showComments({{ page.issue }});
+GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6a24d710cc1012011fce5824f89a26fc49970", function(){
+	Util.showComments({{ page.issue }});
+});
 </script>
-<script type="text/babel">
-    class Point {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        toString() {
-            return '(' + this.x + ', ' + this.y + ')';
-        }
-    }
-
-    function f() {
-        alert('es5的写法');
-    }
-
-    var p = new Point('横坐标', '纵坐标');
-    alert(p);
-    const name = '张三';
-    alert(name);
-    f();
-
-    var arrs = [1, 2, 3, 4, 5, 6];
-
-    var array = arrs.filter(obj => obj > 3);
-
-    console.log(arrs);
-    console.log(array);
-</script>
-
