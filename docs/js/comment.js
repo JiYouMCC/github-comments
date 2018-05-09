@@ -25,6 +25,9 @@ GithubComments = {
         // init access token
         var accessToken = localStorage.getItem(GithubComments.ACCESS_TOKEN_NAME);
         if (accessToken) GithubComments._accessToken = accessToken;
+
+        // init emoji
+        GithubComments.Emoji.Init();
     },
     User: {
         _userInfo: undefined,
@@ -233,24 +236,15 @@ GithubComments = {
         },
         Parse: function(text, callback) {
             var result = text;
-            var parse = function(text) {
-                var emojiList = text.match(/:.+?:/g);
-                for (index in emojiList) {
-                    var emoji = emojiList[index];
-                    var emojiShort = emojiList[index].slice(1, -1);
-                    if (GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
-                        result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">');
-                    }
+            var emojiList = text.match(/:.+?:/g);
+            for (index in emojiList) {
+                var emoji = emojiList[index];
+                var emojiShort = emojiList[index].slice(1, -1);
+                if (GithubComments.Emoji.EMOJI_LIST && GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
+                    result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">');
                 }
-                return result;
             }
-            if (GithubComments.Emoji.EMOJI_LIST) {
-                if (callback) callback(parse(text));
-            } else {
-                GithubComments.Emoji.Init(function(data) {
-                    if (callback) callback(parse(text));
-                });
-            }
+            return result;
         }
     }
 }
