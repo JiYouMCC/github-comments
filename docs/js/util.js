@@ -93,14 +93,10 @@ Util = {
       )
     );
 
-
-    GithubComments.Emoji.Parse(commentData.body, function(htmlResult) {
-      var converter = new showdown.Converter();
-      converter.setOption('ghMentions', true);
-      var html = converter.makeHtml(htmlResult);
-      document.getElementById('Comment_' + commentId).innerHTML = html;
-    })
-
+    var converter = new showdown.Converter();
+    converter.setOption('ghMentions', true);
+    var html = converter.makeHtml(htmlResult);
+    document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(commentData.body);
   },
   addMention: function(userName) {
     $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");

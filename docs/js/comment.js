@@ -234,7 +234,7 @@ GithubComments = {
                 }
             });
         },
-        Parse: function(text, callback) {
+        Parse: function(text) {
             var result = text;
             var emojiList = text.match(/:.+?:/g);
             for (index in emojiList) {
