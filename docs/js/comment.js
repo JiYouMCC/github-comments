@@ -232,17 +232,18 @@ GithubComments = {
             });
         },
         Parse: function(text) {
+            var result = text;
             if (GithubComments.Emoji.EMOJI_LIST) {
                 var emojiList = text.match(/:.+?:/g);
-                var result = text;
                 for (index in emojiList) {
                     var emoji = emojiList[index];
                     var emojiShort = emojiList[index].slice(1, -1);
                     if (GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
-                        result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">>');
+                        result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">>');
                     }
                 }
             }
+            return result;
         }
     }
 }
