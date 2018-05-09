@@ -4,8 +4,10 @@ GithubComments = {
     _clientSecret: undefined,
     _owner: undefined,
     _repos: undefined,
+    _emojiJson: undefined,
     ACCEPT_JSON: "application/json",
     ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
+    EMOJI_JSON: 'EMOJI_JSON',
     CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
@@ -27,7 +29,15 @@ GithubComments = {
         if (accessToken) GithubComments._accessToken = accessToken;
 
         // init emoji
-        GithubComments.Emoji.Init(callback);
+        var emojiJson = localStorage.getItem(GithubComments.EMOJI_JSON);
+        if (emojiJson) {
+            GithubComments._emojiJson = emojiJson;
+            if(callback) callback();
+        } else {
+            GithubComments.Emoji.Init(function(data) {
+                if(callback) callback();
+            });
+        }
     },
     User: {
         _userInfo: undefined,
@@ -219,7 +229,6 @@ GithubComments = {
         Create: function(issueId, callback) {}
     },
     Emoji: {
-        EMOJI_LIST: undefined,
         Init: function(callback) {
             $.ajax({
                 method: 'GET',
@@ -228,7 +237,8 @@ GithubComments = {
                     Accept: GithubComments.ACCEPT_JSON,
                 },
             }).done(function(data) {
-                GithubComments.Emoji.EMOJI_LIST = data;
+                localStorage.setItem(GithubComments.EMOJI_JSON, data);
+                GithubComments._emojiJson = data;
                 if (callback) {
                     callback(data)
                 }
@@ -240,7 +250,7 @@ GithubComments = {
             for (index in emojiList) {
                 var emoji = emojiList[index];
                 var emojiShort = emojiList[index].slice(1, -1);
-                if (GithubComments.Emoji.EMOJI_LIST && GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
+                if (GithubComments._emojiJson && GithubComments._emojiJson[emojiShort]) {
                     result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">');
                 }
             }
