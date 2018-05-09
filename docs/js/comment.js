@@ -231,19 +231,26 @@ GithubComments = {
                 }
             });
         },
-        Parse: function(text) {
+        Parse: function(text, callback) {
             var result = text;
-            if (GithubComments.Emoji.EMOJI_LIST) {
+            var parse = function(text) {
                 var emojiList = text.match(/:.+?:/g);
                 for (index in emojiList) {
                     var emoji = emojiList[index];
                     var emojiShort = emojiList[index].slice(1, -1);
                     if (GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
-                        result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">>');
+                        result = result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">');
                     }
                 }
+                return result;
             }
-            return result;
+            if (GithubComments.Emoji.EMOJI_LIST) {
+                if (callback) callback(parse(text));
+            } else {
+                GithubComments.Emoji.Init(function(data) {
+                    if (callback) callback(parse(text));
+                });
+            }
         }
     }
 }
