@@ -16,7 +16,7 @@ GithubComments = {
         NOT_LOGIN: "User has not login.",
         ISSUE_ID_NOT_EXIST: "The issue id not exist"
     },
-    Init: function(owner, repository, clientId, clientSecret) {
+    Init: function(owner, repository, clientId, clientSecret, callback) {
         GithubComments._repos = repository;
         GithubComments._owner = owner;
         GithubComments._clientId = clientId;
@@ -27,7 +27,7 @@ GithubComments = {
         if (accessToken) GithubComments._accessToken = accessToken;
 
         // init emoji
-        GithubComments.Emoji.Init();
+        GithubComments.Emoji.Init(callback);
     },
     User: {
         _userInfo: undefined,
