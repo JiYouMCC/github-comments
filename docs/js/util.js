@@ -95,8 +95,8 @@ Util = {
 
     var converter = new showdown.Converter();
     converter.setOption('ghMentions', true);
-    var html = converter.makeHtml(htmlResult);
-    document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(commentData.body);
+    var html = converter.makeHtml(GithubComments.Emoji.Parse(commentData.body));
+    document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(html);
   },
   addMention: function(userName) {
     $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");
