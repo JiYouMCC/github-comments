@@ -214,7 +214,21 @@ GithubComments = {
     },
     Issue: {
         Create: function(issueId, callback) {
-
+        }
+    },
+    Emoji: {
+        EMOJI_LIST: undefined,
+        Init: function() {
+             $.ajax({
+                method: 'GET',
+                url: 'https://api.github.com/emojis',
+                headers: {
+                    Accept: GithubComments.ACCEPT_JSON,
+                },
+            }).done(function(data) {
+                GithubComments.Emoji.EMOJI_LIST = data;
+                console.log(data);
+            });
         }
     }
 }
