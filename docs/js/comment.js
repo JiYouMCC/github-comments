@@ -31,7 +31,7 @@ GithubComments = {
         // init emoji
         var emojiJson = localStorage.getItem(GithubComments.EMOJI_JSON);
         if (emojiJson) {
-            GithubComments._emojiJson = emojiJson;
+            GithubComments._emojiJson = JSON.parse(emojiJson);
             if(callback) callback();
         } else {
             GithubComments.Emoji.Init(function(data) {
@@ -238,7 +238,7 @@ GithubComments = {
                 },
             }).done(function(data) {
                 localStorage.setItem(GithubComments.EMOJI_JSON, JSON.stringify(data));
-                GithubComments._emojiJson = JSON.stringify(data);
+                GithubComments._emojiJson = data;
                 if (callback) {
                     callback(data)
                 }
