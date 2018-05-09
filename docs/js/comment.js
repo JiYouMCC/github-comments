@@ -113,6 +113,7 @@ GithubComments = {
     },
     Comments: {
         _comments: undefined,
+        _lock_count: false,
         Get: function(issueId, callback) {
             if(!issueId) {
                 if (callback) {
@@ -178,6 +179,12 @@ GithubComments = {
             });
         },
         Count: function(issueId, callback) {
+            while(true) {
+                if(!GithubComments.Comments._lock_count) break;
+            }
+
+            GithubComments.Comments._lock_count = true;
+
             if (GithubComments.Comments._comments) {
                 var flag = false;
                 for (var i = 0; i < GithubComments.Comments._comments.length; i++) {
@@ -191,6 +198,7 @@ GithubComments = {
 
                 if (!flag)
                     if (callback) callback(undefined);
+                GithubComments.Comments._lock_count = false;
             } else {
                 $.ajax({
                     url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues",
@@ -214,6 +222,7 @@ GithubComments = {
                         if (!flag)
                             if (callback) callback(undefined);
                     }
+                    GithubComments.Comments._lock_count = false;
                 });
             }
         }
