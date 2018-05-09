@@ -18,10 +18,10 @@ GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6
         <h2>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </h2>
-        <h3>Comments(<span id="comments_{{ post.issue }}"></span>)</h3>        
+        <h3>Comments(<span id="comments_{{ post.issue }}"></span>)</h3>
       </li>
 <script type="text/javascript">
-GithubComments.Comments.Count("{{ post.issue }}", function(count){$("#comments_{{ post.issue }}").text(count)});
+GithubComments.Comments.Count("{{ post.issue }}", function(result){ if (result.status){$("#comments_{{ post.issue }}").text(count)}else{$("#comments_{{ post.issue }}").text('-')}} );
 </script>
     {% endfor %}
   </ul>

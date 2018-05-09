@@ -147,8 +147,6 @@ GithubComments = {
                         })
                     }
                 }
-            }).done(function(data) {
-                callback(data);
             })
         },
         Add: function(issueId, commentText, callback) {
@@ -177,11 +175,40 @@ GithubComments = {
             });
         },
         Count: function(issueId, callback) {
+            if(!issueId) {
+                if (callback) {
+                        callback({
+                            'status': false,
+                            'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
+                        })
+                    }
+                return;
+            }
             $.ajax({
                 url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId,
                 dataType: 'json',
-            }).done(function(comment) {
-                if (callback) callback(comment.comments);
+                error: function(request, status, error) {
+                    var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
+                    if (request.status == '404') {
+                        error = GithubComments.ERROR.ISSUE_NOT_FOUND;
+                    }
+
+                    if (callback) {
+                        callback({
+                            'status': false,
+                            'data': error
+                        })
+                    }
+
+                },
+                success: function(comment) {
+                    if (comment.comments && callback) {
+                        callback({
+                            'status': true,
+                            'count': comment.comments
+                        })
+                    }
+                }
             });
         }
     },

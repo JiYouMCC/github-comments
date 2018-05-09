@@ -11,8 +11,10 @@ Util = {
           Util.addComment(result.data[i]);
         }
         Util.showForm(issueId);
-        GithubComments.Comments.Count(issueId, function(count) {
-          $("#comment_count").text(count);
+        GithubComments.Comments.Count(issueId, function(result) {
+          if (result.status) {
+            $("#comment_count").text(result.count);
+          }
         });
       } else {
         if (result.data == GithubComments.ERROR.ISSUE_ID_NOT_EXIST) {
