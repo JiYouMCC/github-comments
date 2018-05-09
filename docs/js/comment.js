@@ -113,13 +113,13 @@ GithubComments = {
     },
     Comments: {
         Get: function(issueId, callback) {
-            if(!issueId) {
+            if (!issueId) {
                 if (callback) {
-                        callback({
-                            'status': false,
-                            'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
-                        })
-                    }
+                    callback({
+                        'status': false,
+                        'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
+                    })
+                }
                 return;
             }
             $.ajax({
@@ -175,13 +175,13 @@ GithubComments = {
             });
         },
         Count: function(issueId, callback) {
-            if(!issueId) {
+            if (!issueId) {
                 if (callback) {
-                        callback({
-                            'status': false,
-                            'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
-                        })
-                    }
+                    callback({
+                        'status': false,
+                        'data': GithubComments.ERROR.ISSUE_ID_NOT_EXIST
+                    })
+                }
                 return;
             }
             $.ajax({
@@ -213,13 +213,12 @@ GithubComments = {
         }
     },
     Issue: {
-        Create: function(issueId, callback) {
-        }
+        Create: function(issueId, callback) {}
     },
     Emoji: {
         EMOJI_LIST: undefined,
-        Init: function() {
-             $.ajax({
+        Init: function(callback) {
+            $.ajax({
                 method: 'GET',
                 url: 'https://api.github.com/emojis',
                 headers: {
@@ -227,8 +226,23 @@ GithubComments = {
                 },
             }).done(function(data) {
                 GithubComments.Emoji.EMOJI_LIST = data;
-                console.log(data);
+                if (callback) {
+                    callback(data)
+                }
             });
+        },
+        Parse: function(text) {
+            if (GithubComments.Emoji.EMOJI_LIST) {
+                var emojiList = text.match(/:.+?:/g);
+                var result = text;
+                for (index in emojiList) {
+                    var emoji = emojiList[index];
+                    var emojiShort = emojiList[index].slice(1, -1);
+                    if (GithubComments.Emoji.EMOJI_LIST[emojiShort]) {
+                        result.replace(emoji, '<img class="emoji" title="' + emoji + '" alt="' + emoji + '" src="' + GithubComments.Emoji.EMOJI_LIST[emojiShort] + '" height="20" width="20">>');
+                    }
+                }
+            }
         }
     }
 }
