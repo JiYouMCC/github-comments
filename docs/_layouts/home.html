@@ -21,7 +21,7 @@ GithubComments.Init("JiYouMCC", "github-comments", "ca1f2f2f0b71983065c5", "48f6
         <h3>Comments(<span id="comments_{{ post.issue }}"></span>)</h3>
       </li>
 <script type="text/javascript">
-GithubComments.Comments.Count("{{ post.issue }}", function(result){ if (result.status){$("#comments_{{ post.issue }}").text(count)}else{$("#comments_{{ post.issue }}").text('-')}} );
+GithubComments.Comments.Count("{{ post.issue }}", function(result){ if (result.status){$("#comments_{{ post.issue }}").text(result.count)}else{$("#comments_{{ post.issue }}").text('-')}} );
 </script>
     {% endfor %}
   </ul>
