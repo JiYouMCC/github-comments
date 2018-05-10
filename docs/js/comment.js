@@ -215,7 +215,7 @@ GithubComments = {
 
                 },
                 success: function(comment) {
-                    if (comment.comments && callback) {
+                    if (comment.comments >= 0 && callback) {
                         callback({
                             'status': true,
                             'count': comment.comments
