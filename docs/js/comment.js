@@ -65,7 +65,18 @@ GithubComments = {
             }
 
             if (!code) {
-                code = window.location.href.searchParams.get(GithubComments.PARAM_CODE);
+                var url = window.location.href;
+                var start = url.indexOf('?');
+                var paramsStr = url.slice(start + 1);
+                var paramsStr = paramsStr.split('&');
+                var params = {};
+                for  (index in paramsStr) {
+                    var keyValue = paramsStr[index].split('=');
+                    params[keyValue[0]] = keyValue[1];
+                }
+                
+                if (params[GithubComments.PARAM_CODE])
+                    code = params[GithubComments.PARAM_CODE];
             }
 
             if (!code) {
