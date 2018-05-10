@@ -65,8 +65,7 @@ GithubComments = {
             }
 
             if (!code) {
-                var url = new URL(window.location.href);
-                code = url.searchParams.get(GithubComments.PARAM_CODE);
+                code = window.location.href.searchParams.get(GithubComments.PARAM_CODE);
             }
 
             if (!code) {
