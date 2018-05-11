@@ -218,7 +218,7 @@ GithubComments = {
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     // Success!
-                    var comment = request.responseText;
+                    var comment = request.response;
                     if (comment.comments >= 0 && callback) {
                         callback({
                             'status': true,
