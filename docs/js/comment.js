@@ -210,15 +210,12 @@ GithubComments = {
                 return;
             }
             
-            
-            
             var request = new XMLHttpRequest();
             request.open('GET', "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId, true);
             request.responseType = 'json';
             request.onload = function() {
                 if (request.status >= 200 && request.status < 400) {
-                    // Success!
-                    var comment = request.response;
+                    var comment = JSON.parse(request.response);
                     if (comment.comments >= 0 && callback) {
                         callback({
                             'status': true,
