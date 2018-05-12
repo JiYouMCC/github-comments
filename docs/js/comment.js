@@ -245,7 +245,7 @@ GithubComments = {
             $.ajax({
                 method: 'GET',
                 async: false,
-                url: 'https://api.github.com/emojis',
+                url: GithubComments.GITHUB_GPI + '/emojis',
                 headers: {
                     Accept: GithubComments.ACCEPT_JSON,
                 },
