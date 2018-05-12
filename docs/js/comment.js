@@ -147,7 +147,6 @@ GithubComments = {
             }
             $.ajax({
                 url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
-                async: false,
                 dataType: 'json',
                 error: function(request, status, error) {
                     var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
@@ -183,7 +182,6 @@ GithubComments = {
 
             $.ajax({
                 method: 'POST',
-                async: false,
                 url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments?' + $.param({
                     'access_token': GithubComments._accessToken
                 }),
@@ -244,7 +242,6 @@ GithubComments = {
         Init: function(callback) {
             $.ajax({
                 method: 'GET',
-                async: false,
                 url: GithubComments.GITHUB_GPI + '/emojis',
                 headers: {
                     Accept: GithubComments.ACCEPT_JSON,
