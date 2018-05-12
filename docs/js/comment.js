@@ -209,47 +209,7 @@ GithubComments = {
                 }
                 return;
             }
-            
-            var request = new XMLHttpRequest();
-            request.open('GET', "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId, true);
-            request.responseType = 'json';
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var comment = JSON.parse(request.response);
-                    if (comment.comments >= 0 && callback) {
-                        callback({
-                            'status': true,
-                            'count': comment.comments
-                        })
-                    }
-                } else {
-                    // We reached our target server, but it returned an error
-                    var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
-                    if (request.status == '404') {
-                        error = GithubComments.ERROR.ISSUE_NOT_FOUND;
-                    }
-
-                    if (callback) {
-                        callback({
-                            'status': false,
-                            'data': error
-                        })
-                    }
-                }
-            };
-            request.onerror = function() {
-                // There was a connection error of some sort
-                var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
-                if (callback) {
-                        callback({
-                            'status': false,
-                            'data': error
-                        })
-                    }
-            };
-            request.send(); 
-            
-           /* $.ajax({
+            $.ajax({
                 url: "https://api.github.com/repos/" + GithubComments._owner + "/" + GithubComments._repos + "/issues/" + issueId,
                 dataType: 'json',
                 error: function(request, status, error) {
@@ -274,7 +234,7 @@ GithubComments = {
                         })
                     }
                 }
-            });*/
+            });
         }
     },
     Issue: {
