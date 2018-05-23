@@ -1,6 +1,3 @@
-// Karma configuration
-// Generated on Tue May 22 2018 13:45:29 GMT+0800 (China Standard Time)
-
 module.exports = function(config) {
   config.set({
 
