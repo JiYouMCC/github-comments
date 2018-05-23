@@ -15,7 +15,7 @@
     "require": "^2.4.20"
   },
   "devDependencies": {
-    "karma": "~0.12"
+    "karma": "@^2.0.2"
   },
   "scripts": {
     "test": "karma start"
