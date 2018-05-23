@@ -13,7 +13,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
     'https://code.jquery.com/jquery-3.3.1.min.js',
-        'test/*.js',
+        'test/*.test.js',
         'docs/js/comment.js'
     ],
 
