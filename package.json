@@ -1,0 +1,36 @@
+{
+  "name": "github-comments",
+  "version": "1.0.0",
+  "description": "Comments using github issues",
+  "main": "my.conf.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "dependencies": {
+    "jasmine-core": "^3.1.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma": "^2.0.2",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {
+    "karma": "~0.12"
+  },
+  "scripts": {
+    "test": "karma start --single-run --browsers PhantomJS"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiYouMCC/github-comments.git"
+  },
+  "keywords": [
+    "github-api"
+  ],
+  "author": "JiYouMCC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JiYouMCC/github-comments/issues"
+  },
+  "homepage": "https://github.com/JiYouMCC/github-comments#readme"
+}
