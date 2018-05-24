@@ -1,4 +1,4 @@
-describe("Comment test", function() {
+describe("Github comments test", function() {
     var owner = "JiYouMCC";
     var repos = "github-comments";
     var clientId = "ca1f2f2f0b71983065c5";
@@ -8,7 +8,7 @@ describe("Comment test", function() {
         GithubComments.Init(owner, repos, clientId, clientSecret);
     });
 
-    it("Init test", function() {
+    it("The owner, repos client id, client secret should be set after init", function() {
         expect(GithubComments._repos).toBe(repos);
         expect(GithubComments._owner).toBe(owner);
         expect(GithubComments._clientId).toBe(clientId);
