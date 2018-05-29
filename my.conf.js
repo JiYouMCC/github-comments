@@ -17,7 +17,7 @@ module.exports = function(config) {
         files: [
             'https://code.jquery.com/jquery-3.3.1.min.js',
             'test/*.test.js',
-            'docs/js/comment.js'
+            'js/comment.js'
         ],
 
 
