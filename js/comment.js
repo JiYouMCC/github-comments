@@ -235,9 +235,6 @@ GithubComments = {
             });
         }
     },
-    Issue: {
-        Create: function(issueId, callback) {}
-    },
     Emoji: {
         Init: function(callback) {
             $.ajax({
@@ -262,6 +259,8 @@ GithubComments = {
                 var emojiShort = emojiList[index].slice(1, -1);
                 if (GithubComments._emojiJson && GithubComments._emojiJson[emojiShort]) {
                     result = result.replace(emoji, '<img class="emoji" title="' + emojiShort + '" alt="' + emojiShort + '" src="' + GithubComments._emojiJson[emojiShort] + '" height="20" width="20">');
+                } else {
+                    console.log("Please call GithubComments.Emoji.Init() before Parse.");
                 }
             }
             return result;
