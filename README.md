@@ -1,2 +1,2 @@
-# git-comment [![Build Status](https://travis-ci.org/JiYouMCC/github-comments.svg?branch=master)](https://travis-ci.org/JiYouMCC/github-comments)
+# git-comment
 Comments using github issues
