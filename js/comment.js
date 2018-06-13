@@ -8,7 +8,7 @@ GithubComments = {
     ACCEPT_JSON: "application/json",
     ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     EMOJI_JSON: 'EMOJI_JSON',
-    CORS_ANYWHERE: 'https://cors-anywhere.herokuapp.com/',
+    CORS_ANYWHERE: 'https://jithee-cors.azurewebsites.net/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
     GITHUB_GPI: 'https://api.github.com',

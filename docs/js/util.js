@@ -39,7 +39,7 @@ Util = {
               $("<span></span>").text(userName).addClass('username')
             )
           ).append(
-          $("<div></div>").addClass('trigger').append(
+            $("<div></div>").addClass('trigger').append(
               $("<a></a>").addClass('page-link').attr('id', 'link_logout').text("Logout").css('cursor', 'pointer')
             )
           )
@@ -64,9 +64,9 @@ Util = {
         $("#comments_form").text("");
         $("#comments_form").append(
           $("<div></div>").addClass('trigger').append(
-          $("<a></a>").click(function() {
-          GithubComments.User.Login();
-        }).css('cursor', 'pointer').addClass('page-link').text("Login")));
+            $("<a></a>").click(function() {
+              GithubComments.User.Login();
+            }).css('cursor', 'pointer').addClass('page-link').text("Login")));
       }
     });
   },
@@ -97,8 +97,14 @@ Util = {
       )
     );
 
-    var converter = new showdown.Converter();
-    converter.setOption('ghMentions', true);
+    var converter = new showdown.Converter({
+      ghMentions: true,
+      tables: true,
+      tasklists: true,
+      simpleLineBreaks: true,
+      openLinksInNewWindow: true,
+      simplifiedAutoLink: true
+    });
     var html = converter.makeHtml(GithubComments.Emoji.Parse(commentData.body));
     document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(html);
   },
