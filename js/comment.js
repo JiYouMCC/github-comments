@@ -124,9 +124,13 @@ GithubComments = {
                     dataType: 'json',
                     success: function(data) {
                         GithubComments.User._userInfo = data;
+                        if (callback) callback(data);
+                    },
+                    error: function(data) {
+                        // current accessToken is invalid
+                        GithubComments.User.Logout();
+                        if (callback) callback(data);
                     }
-                }).done(function(data) {
-                    if (callback) callback(data);
                 });
             });
         },
