@@ -97,15 +97,7 @@ Util = {
       )
     );
 
-    var converter = new showdown.Converter({
-      ghMentions: true,
-      tables: true,
-      tasklists: true,
-      simpleLineBreaks: true,
-      openLinksInNewWindow: true,
-      simplifiedAutoLink: true
-    });
-    var html = converter.makeHtml(GithubComments.Emoji.Parse(commentData.body));
+    var html = commentData.body;
     document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(html);
   },
   addMention: function(userName) {
