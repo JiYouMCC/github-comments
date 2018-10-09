@@ -97,7 +97,7 @@ Util = {
       )
     );
 
-    var html = commentData.body;
+    var html = commentData.body_html;
     document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(html);
   },
   addMention: function(userName) {
