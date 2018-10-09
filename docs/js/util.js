@@ -99,9 +99,21 @@ Util = {
 
     var html = commentData.body_html;
     document.getElementById('Comment_' + commentId).innerHTML = GithubComments.Emoji.Parse(html);
+    emojiProcess();
   },
   addMention: function(userName) {
     $("#commnet_text").val($("#commnet_text").val() + "@" + userName + " ");
     $("#commnet_text").focus();
+  }
+}
+
+function emojiProcess() {
+  var elements = $("g-emoji");
+  for (var i = 0; i < elements.length; i++) {
+    var element = $(elements[i]);
+    var alias = element.attr('alias');
+    var newEmoji = $(GithubComments.Emoji.Parse(":" + alias + ":"));
+    newEmoji.insertAfter(element);
+    element.remove();
   }
 }
