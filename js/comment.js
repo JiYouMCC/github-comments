@@ -12,6 +12,7 @@ GithubComments = {
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
     GITHUB_GPI: 'https://api.github.com',
+    PER_PAGE: 28,
     ERROR: {
         ISSUE_NOT_FOUND: "Comment issue not found, maybe not created.",
         UNHANDLE_EXCEPTION: "Error",
@@ -32,10 +33,10 @@ GithubComments = {
         var emojiJson = localStorage.getItem(GithubComments.EMOJI_JSON);
         if (emojiJson) {
             GithubComments._emojiJson = JSON.parse(emojiJson);
-            if(callback) callback();
+            if (callback) callback();
         } else {
             GithubComments.Emoji.Init(function(data) {
-                if(callback) callback();
+                if (callback) callback();
             });
         }
     },
@@ -70,11 +71,11 @@ GithubComments = {
                 var paramsStr = url.slice(start + 1);
                 var paramsStr = paramsStr.split('&');
                 var params = {};
-                for  (index in paramsStr) {
+                for (index in paramsStr) {
                     var keyValue = paramsStr[index].split('=');
                     params[keyValue[0]] = keyValue[1];
                 }
-                
+
                 if (params[GithubComments.PARAM_CODE])
                     code = params[GithubComments.PARAM_CODE];
             }
@@ -139,7 +140,7 @@ GithubComments = {
         }
     },
     Comments: {
-        Get: function(issueId, callback) {
+        Get: function(issueId, callback, page) {
             if (!issueId) {
                 if (callback) {
                     callback({
@@ -149,9 +150,16 @@ GithubComments = {
                 }
                 return;
             }
+            if (!page) {
+                page = 1;
+            }
             $.ajax({
-                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
+                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments?per_page=' + GithubComments.PER_PAGE + '&page=' + page,
                 dataType: 'json',
+                headers: {
+                    Accept: 'application/vnd.github.VERSION.html+json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
                 error: function(request, status, error) {
                     var error = GithubComments.ERROR.UNHANDLE_EXCEPTION;
                     if (request.status == '404') {
@@ -166,11 +174,24 @@ GithubComments = {
                     }
 
                 },
-                success: function(data) {
+                success: function(data, textStatus, request) {
+                    var links = request.getResponseHeader('Link');
+                    links = links.split(',');
+                    var link_array = [];
+                    for (var i = 0; i < links.length; i++) {
+                        link_array.push({
+                            'page': links[i].match(/&page=(\d+)/i)[1],
+                            'ref': links[i].match(/rel=\"(.+)\"/i)[1]
+                        })
+                    }
+
+                    console.log(link_array);
+
                     if (callback) {
                         callback({
                             'status': true,
-                            'data': data
+                            'data': data,
+                            'links': link_array
                         })
                     }
                 }
@@ -189,6 +210,10 @@ GithubComments = {
                 url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments?' + $.param({
                     'access_token': GithubComments._accessToken
                 }),
+                headers: {
+                    Accept: 'application/vnd.github.VERSION.html+json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
                 data: JSON.stringify({
                     'body': commentText
                 }),
