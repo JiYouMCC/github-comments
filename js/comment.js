@@ -8,7 +8,7 @@ GithubComments = {
     ACCEPT_JSON: "application/json",
     ACCESS_TOKEN_NAME: 'GIT_ACCESS_TOKEN',
     EMOJI_JSON: 'EMOJI_JSON',
-    CORS_ANYWHERE: 'http://jithee-cors.azurewebsites.net/',
+    CORS_ANYWHERE: 'https://jithee-cors.azurewebsites.net/',
     PARAM_CODE: 'code',
     SCOPE: "public_repo",
     GITHUB_GPI: 'https://api.github.com',
@@ -176,16 +176,16 @@ GithubComments = {
                 },
                 success: function(data, textStatus, request) {
                     var links = request.getResponseHeader('Link');
-                    links = links.split(',');
                     var link_array = [];
-                    for (var i = 0; i < links.length; i++) {
-                        link_array.push({
-                            'page': links[i].match(/&page=(\d+)/i)[1],
-                            'ref': links[i].match(/rel=\"(.+)\"/i)[1]
-                        })
+                    if (links) {
+                        links = links.split(',');
+                        for (var i = 0; i < links.length; i++) {
+                            link_array.push({
+                                'page': links[i].match(/&page=(\d+)/i)[1],
+                                'ref': links[i].match(/rel=\"(.+)\"/i)[1]
+                            })
+                        }
                     }
-
-                    console.log(link_array);
 
                     if (callback) {
                         callback({
@@ -257,6 +257,7 @@ GithubComments = {
                     if (comment.comments >= 0 && callback) {
                         callback({
                             'status': true,
+                            'number': comment.number,
                             'count': comment.comments
                         })
                     }
