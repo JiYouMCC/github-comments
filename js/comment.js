@@ -208,8 +208,7 @@ GithubComments = {
 
             $.ajax({
                 method: 'POST',
-                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments'
-                }),
+                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
                 headers: {
                     'Authorization': 'token '+GithubComments._accessToken,
                     Accept: 'application/vnd.github.VERSION.html+json',
