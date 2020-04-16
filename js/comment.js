@@ -119,12 +119,11 @@ GithubComments = {
                 }
 
                 $.ajax({
-                    url: "https://api.github.com/user"
-                    },
+                    url: "https://api.github.com/user",
                     dataType: 'json',
                     headers: {
                         'Authorization': 'token '+GithubComments._accessToken
-                    }),
+                    },
                     success: function(data) {
                         GithubComments.User._userInfo = data;
                         if (callback) callback(data);

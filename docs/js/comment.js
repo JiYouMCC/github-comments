@@ -119,12 +119,11 @@ GithubComments = {
                 }
 
                 $.ajax({
-                    url: "https://api.github.com/user"
-                    },
+                    url: "https://api.github.com/user",
                     dataType: 'json',
                     headers: {
                         'Authorization': 'token '+GithubComments._accessToken
-                    }),
+                    },
                     success: function(data) {
                         GithubComments.User._userInfo = data;
                         if (callback) callback(data);
@@ -209,8 +208,7 @@ GithubComments = {
 
             $.ajax({
                 method: 'POST',
-                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments'
-                }),
+                url: GithubComments.GITHUB_GPI + '/repos/' + GithubComments._owner + '/' + GithubComments._repos + '/issues/' + issueId + '/comments',
                 headers: {
                     'Authorization': 'token '+GithubComments._accessToken,
                     Accept: 'application/vnd.github.VERSION.html+json',
