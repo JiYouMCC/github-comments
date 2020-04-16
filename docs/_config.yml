@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Comments using Github
-email: jiyou.linux@gmail.com
+email: nightghostjiyou@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Comments using github (issues).
 baseurl: "/github-comments" # the subpath of your site, e.g. /blog
