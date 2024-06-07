@@ -1,0 +1,18 @@
+---
+layout: post
+title:  "Fixed a bug"
+date:   2024-06-07 12:00:00 +0800
+---
+有几个很老的bug，大概在2018或者2019的时候我在自己的blog就修掉了。
+
+但是这里一直没改。
+
+今天心血来潮改一下。
+
+1. 修改cors到https
+2. GitHub的api也改格式了，'access_token': GithubComments._accessToken 改成了headers: {'Authorization': 'token '+GithubComments._accessToken},
+
+Fix several old bugs.
+
+1. Change CORS proxy to https
+2. Change GitHub api: 'access_token': GithubComments._accessToken ===> headers: {'Authorization': 'token '+GithubComments._accessToken},
